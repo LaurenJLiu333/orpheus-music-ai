@@ -1,0 +1,7 @@
+project_id = "mvlrpimszcpwypkxzssr"
+
+[functions.chat]
+verify_jwt = false
+
+[functions.analyze-midi]
+verify_jwt = false
