@@ -121,9 +121,8 @@ const Upload = () => {
         onDrop={onDrop}
         onClick={() => inputRef.current?.click()}
         className={`w-full rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all ${
-          dragActive ? "border-accent bg-accent/10" : "border-border"
+          dragActive ? "border-accent bg-accent/10" : "border-border bg-card"
         }`}
-        style={{ background: dragActive ? undefined : "var(--gradient-hero)" }}
       >
         <input
           ref={inputRef}
