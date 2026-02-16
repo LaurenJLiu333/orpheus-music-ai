@@ -34,7 +34,7 @@ const Index = () => {
             className="relative rounded-2xl p-8 h-56 flex flex-col justify-end overflow-hidden border border-border"
             style={{ background: "var(--gradient-card)" }}
           >
-            <f.icon className="absolute top-4 right-4 text-foreground/20" size={40} />
+            <f.icon className="absolute top-4 right-4 text-foreground" size={40} />
             <h3 className="text-lg font-bold text-foreground font-sans">{f.title}</h3>
             <p className="text-sm text-foreground/70 mt-1">{f.description}</p>
           </div>

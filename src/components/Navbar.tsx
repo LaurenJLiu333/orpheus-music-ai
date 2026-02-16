@@ -29,12 +29,12 @@ const Navbar = () => {
           </Button>
         </Link>
         {user ? (
-          <Button variant="ghost" onClick={handleLogout} className="text-muted-foreground">
+          <Button variant="ghost" onClick={handleLogout} className="text-foreground">
             Logout
           </Button>
         ) : (
           <Link to="/login">
-            <Button variant="ghost" className="text-muted-foreground">Login</Button>
+            <Button variant="ghost" className="text-foreground">Login</Button>
           </Link>
         )}
       </div>
