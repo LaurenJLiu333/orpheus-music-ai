@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import ReactMarkdown from "react-markdown";
 import lyreLogo from "@/assets/lyre-logo.png";
 
 type Msg = { role: "user" | "assistant"; content: string; timestamp: Date };
@@ -54,14 +53,20 @@ const ChatWidget = () => {
 
   const formatTime = (d: Date) => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
+  // Strip markdown asterisks for plain text rendering
+  const stripMarkdown = (text: string) => text.replace(/\*{1,3}/g, "");
+
   if (!open) {
     return (
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
-      >
-        <img src={lyreLogo} alt="Chat" className="w-9 h-9 rounded-full" />
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-1">
+        <button
+          onClick={() => setOpen(true)}
+          className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+        >
+          <img src={lyreLogo} alt="Chat" className="w-9 h-9 rounded-full" />
+        </button>
+        <span className="text-xs font-medium text-foreground">Chatbot</span>
+      </div>
     );
   }
 
@@ -89,8 +94,8 @@ const ChatWidget = () => {
               </div>
             )}
             <div className={`max-w-[75%] ${msg.role === "user" ? "text-right" : ""}`}>
-              <div className="rounded-2xl px-4 py-2 text-sm bg-card border border-border">
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              <div className="rounded-2xl px-4 py-2 text-sm bg-card border border-border whitespace-pre-wrap">
+                {stripMarkdown(msg.content)}
               </div>
               <span className="text-xs text-muted-foreground mt-1 block">{formatTime(msg.timestamp)}</span>
             </div>

@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Send, Loader2, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import ReactMarkdown from "react-markdown";
 import lyreLogo from "@/assets/lyre-logo.png";
 
 type Msg = { role: "user" | "assistant"; content: string; timestamp: Date };
+
+const stripMarkdown = (text: string) => text.replace(/\*{1,3}/g, "");
 
 const Chat = () => {
   const { user, loading: authLoading } = useAuth();
@@ -85,8 +86,8 @@ const Chat = () => {
               </div>
             )}
             <div className={`max-w-[75%] ${msg.role === "user" ? "text-right" : ""}`}>
-              <div className="rounded-2xl px-4 py-3 bg-card border border-border">
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              <div className="rounded-2xl px-4 py-3 bg-card border border-border whitespace-pre-wrap text-sm">
+                {stripMarkdown(msg.content)}
               </div>
               <span className="text-xs text-muted-foreground mt-1 block">{formatTime(msg.timestamp)}</span>
             </div>

@@ -14,10 +14,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-background/80 backdrop-blur-sm border-b border-border">
+    <nav
+      className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 backdrop-blur-sm border-b border-border"
+      style={{ background: "var(--gradient-nav)" }}
+    >
       <Link to="/" className="flex items-center gap-2">
         <img src={lyreLogo} alt="Orpheus" className="w-10 h-10 rounded-lg" />
-        <span className="text-2xl font-display font-bold text-foreground">Orpheus</span>
+        <span className="text-2xl font-bold text-foreground">Orpheus</span>
       </Link>
       <div className="flex items-center gap-3">
         <Link to="/upload">

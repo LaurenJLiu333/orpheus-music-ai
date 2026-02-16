@@ -2,9 +2,16 @@ import { useState, useCallback, useRef } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Upload as UploadIcon, X, FileAudio, Loader2 } from "lucide-react";
+import { Upload as UploadIcon, X, FileAudio, Loader2, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import ReactMarkdown from "react-markdown";
+
+const INSTRUMENTS = [
+  "Piano", "Guitar", "Bass", "Drums", "Violin", "Viola", "Cello",
+  "Flute", "Clarinet", "Saxophone", "Trumpet", "Trombone", "French Horn",
+  "Oboe", "Bassoon", "Harp", "Organ", "Synthesizer", "Voice/Vocals",
+  "Ukulele", "Banjo", "Mandolin", "Accordion", "Harmonica", "Timpani",
+  "Vibraphone", "Marimba", "Xylophone",
+];
 
 const Upload = () => {
   const { user, loading: authLoading } = useAuth();
@@ -14,6 +21,7 @@ const Upload = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [selectedInstruments, setSelectedInstruments] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((f: File) => {
@@ -32,6 +40,12 @@ const Upload = () => {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   }, [handleFile]);
 
+  const toggleInstrument = (instrument: string) => {
+    setSelectedInstruments(prev =>
+      prev.includes(instrument) ? prev.filter(i => i !== instrument) : [...prev, instrument]
+    );
+  };
+
   const analyze = async () => {
     if (!file) return;
     setAnalyzing(true);
@@ -43,7 +57,12 @@ const Upload = () => {
       const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-midi", {
-        body: { midiBase64: base64, fileName: file.name, fileSize: file.size },
+        body: {
+          midiBase64: base64,
+          fileName: file.name,
+          fileSize: file.size,
+          instruments: selectedInstruments,
+        },
       });
 
       if (fnError) throw fnError;
@@ -56,6 +75,32 @@ const Upload = () => {
     }
   };
 
+  // Strip markdown bold/italic asterisks for plain display
+  const stripMarkdown = (text: string) => text.replace(/\*{1,3}/g, "");
+
+  // Parse sections from the feedback text
+  const parseSections = (text: string) => {
+    const cleaned = stripMarkdown(text);
+    const lines = cleaned.split("\n");
+    const sections: { title: string; content: string[] }[] = [];
+    let current: { title: string; content: string[] } | null = null;
+
+    for (const line of lines) {
+      const headerMatch = line.match(/^#{1,3}\s+(.+)/);
+      if (headerMatch) {
+        if (current) sections.push(current);
+        current = { title: headerMatch[1].trim(), content: [] };
+      } else if (current) {
+        if (line.trim()) current.content.push(line);
+      } else if (line.trim()) {
+        if (!current) current = { title: "", content: [] };
+        current.content.push(line);
+      }
+    }
+    if (current) sections.push(current);
+    return sections;
+  };
+
   if (!authLoading && !user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] px-6">
@@ -65,15 +110,18 @@ const Upload = () => {
     );
   }
 
+  const sections = feedback ? parseSections(feedback) : [];
+
   return (
     <main className="flex flex-col items-center px-6 py-10 max-w-3xl mx-auto">
+      {/* Upload area */}
       <div
         onDragOver={e => { e.preventDefault(); setDragActive(true); }}
         onDragLeave={() => setDragActive(false)}
         onDrop={onDrop}
         onClick={() => inputRef.current?.click()}
         className={`w-full rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all ${
-          dragActive ? "border-accent bg-accent/10" : "border-border bg-card"
+          dragActive ? "border-accent bg-accent/10" : "border-border"
         }`}
         style={{ background: dragActive ? undefined : "var(--gradient-hero)" }}
       >
@@ -85,8 +133,8 @@ const Upload = () => {
           onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
         />
         <UploadIcon className="mx-auto mb-4 text-foreground/40" size={48} />
-        <h2 className="text-2xl font-display font-bold text-foreground mb-2">UPLOAD</h2>
-        <p className="text-sm text-muted-foreground">Drag & drop a .mid file or click to browse</p>
+        <h2 className="text-2xl font-bold text-foreground mb-2">UPLOAD</h2>
+        <p className="text-sm text-muted-foreground">Drag and drop a .mid file or click to browse</p>
 
         {file && (
           <div className="mt-4 flex items-center justify-center gap-3 bg-background/80 rounded-xl px-4 py-2 mx-auto w-fit">
@@ -108,17 +156,73 @@ const Upload = () => {
         </Button>
       </div>
 
+      {/* Instrument selector */}
+      <div className="w-full mt-8 rounded-2xl border border-border bg-card p-6">
+        <h3 className="text-lg font-bold text-foreground mb-2">Instruments in Your Score</h3>
+        <p className="text-sm text-muted-foreground mb-4">Select the instruments used so the AI can give specialized feedback.</p>
+        <div className="flex flex-wrap gap-2">
+          {INSTRUMENTS.map(inst => {
+            const selected = selectedInstruments.includes(inst);
+            return (
+              <button
+                key={inst}
+                onClick={() => toggleInstrument(inst)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all flex items-center gap-1.5 ${
+                  selected
+                    ? "border-foreground bg-foreground text-primary-foreground"
+                    : "border-border bg-background text-foreground hover:border-foreground/50"
+                }`}
+              >
+                {selected && <Check size={14} />}
+                {inst}
+              </button>
+            );
+          })}
+        </div>
+        {selectedInstruments.length > 0 && (
+          <p className="text-xs text-muted-foreground mt-3">
+            {selectedInstruments.length} instrument{selectedInstruments.length > 1 ? "s" : ""} selected
+          </p>
+        )}
+      </div>
+
       {error && <p className="text-destructive text-sm mt-4">{error}</p>}
 
+      {/* Feedback */}
       <div className="w-full mt-8 rounded-2xl border border-border bg-card p-6 min-h-[200px]">
-        <h3 className="text-lg font-bold text-foreground mb-4 font-sans">Feedback</h3>
+        <h3 className="text-lg font-bold text-foreground mb-4">Feedback</h3>
         {analyzing ? (
           <div className="flex items-center gap-2 text-muted-foreground">
             <Loader2 className="animate-spin" size={16} /> Analyzing your MIDI file...
           </div>
-        ) : feedback ? (
-          <div className="prose prose-sm max-w-none text-foreground/90">
-            <ReactMarkdown>{feedback}</ReactMarkdown>
+        ) : sections.length > 0 ? (
+          <div className="space-y-6 text-foreground/90 text-sm leading-relaxed">
+            {sections.map((section, i) => (
+              <div key={i}>
+                {section.title && (
+                  <h4 className="text-base font-bold text-foreground mb-2">{section.title}</h4>
+                )}
+                {section.content.map((line, j) => {
+                  const bulletMatch = line.match(/^[-•]\s+(.*)/);
+                  if (bulletMatch) {
+                    return (
+                      <p key={j} className="ml-4 mb-1 before:content-['•'] before:mr-2 before:text-foreground/40">
+                        {bulletMatch[1]}
+                      </p>
+                    );
+                  }
+                  const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
+                  if (numberedMatch) {
+                    return (
+                      <p key={j} className="ml-4 mb-1">
+                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{numberedMatch[2]}
+                      </p>
+                    );
+                  }
+                  return <p key={j} className="mb-1">{line}</p>;
+                })}
+              </div>
+            ))}
           </div>
         ) : (
           <p className="text-muted-foreground text-sm">Upload and analyze a MIDI file to see feedback here.</p>
