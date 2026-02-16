@@ -131,7 +131,7 @@ const Upload = () => {
           className="hidden"
           onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
         />
-        <UploadIcon className="mx-auto mb-4 text-foreground/40" size={48} />
+        <UploadIcon className="mx-auto mb-4 text-foreground" size={48} />
         <h2 className="text-2xl font-bold text-foreground mb-2">UPLOAD</h2>
         <p className="text-sm text-muted-foreground">Drag and drop a .mid file or click to browse</p>
 

@@ -24,17 +24,17 @@ const Navbar = () => {
       </Link>
       <div className="flex items-center gap-3">
         <Link to="/upload">
-          <Button variant="outline" className="rounded-full px-6 border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground">
+          <Button variant="outline" className="rounded-full px-6 border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground font-bold">
             Upload
           </Button>
         </Link>
         {user ? (
-          <Button variant="ghost" onClick={handleLogout} className="text-foreground">
+          <Button variant="ghost" onClick={handleLogout} className="text-foreground font-bold">
             Logout
           </Button>
         ) : (
           <Link to="/login">
-            <Button variant="ghost" className="text-foreground">Login</Button>
+            <Button variant="ghost" className="text-foreground font-bold">Login</Button>
           </Link>
         )}
       </div>
