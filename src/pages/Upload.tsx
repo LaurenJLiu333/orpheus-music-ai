@@ -227,9 +227,16 @@ const Upload = () => {
                   }
                   const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
                   if (numberedMatch) {
+                    // Render bold inline for numbered items (e.g. Top 3 Fixes)
+                    const renderInline = (text: string) => {
+                      const parts = text.split(/\*\*(.*?)\*\*/g);
+                      return parts.map((part, k) =>
+                        k % 2 === 1 ? <strong key={k} className="font-bold text-foreground">{part}</strong> : part
+                      );
+                    };
                     return (
                       <div key={j} className="ml-4 mb-1">
-                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{renderLine(numberedMatch[2])}
+                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{renderInline(numberedMatch[2])}
                       </div>
                     );
                   }
