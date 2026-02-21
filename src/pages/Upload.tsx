@@ -202,30 +202,38 @@ const Upload = () => {
                   <h4 className="text-base font-bold text-foreground mb-2">{section.title}</h4>
                 )}
                 {section.content.map((line, j) => {
-                  // Render **bold** segments inline
+                  // Split line by **bold** segments, rendering bold parts on their own line
                   const renderLine = (text: string) => {
                     const parts = text.split(/\*\*(.*?)\*\*/g);
-                    return parts.map((part, k) =>
-                      k % 2 === 1 ? <strong key={k} className="font-bold text-foreground">{part}</strong> : part
-                    );
+                    const elements: React.ReactNode[] = [];
+                    parts.forEach((part, k) => {
+                      if (k % 2 === 1) {
+                        elements.push(
+                          <span key={k} className="block font-bold text-foreground mt-2 mb-0.5">{part}</span>
+                        );
+                      } else if (part.trim()) {
+                        elements.push(<span key={k}>{part}</span>);
+                      }
+                    });
+                    return elements;
                   };
                   const bulletMatch = line.match(/^[-•]\s+(.*)/);
                   if (bulletMatch) {
                     return (
-                      <p key={j} className="ml-4 mb-1 before:content-['•'] before:mr-2 before:text-foreground/40">
+                      <div key={j} className="ml-4 mb-1">
                         {renderLine(bulletMatch[1])}
-                      </p>
+                      </div>
                     );
                   }
                   const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
                   if (numberedMatch) {
                     return (
-                      <p key={j} className="ml-4 mb-1">
+                      <div key={j} className="ml-4 mb-1">
                         <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{renderLine(numberedMatch[2])}
-                      </p>
+                      </div>
                     );
                   }
-                  return <p key={j} className="mb-1">{renderLine(line)}</p>;
+                  return <div key={j} className="mb-1">{renderLine(line)}</div>;
                 })}
               </div>
             ))}
