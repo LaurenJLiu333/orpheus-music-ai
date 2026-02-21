@@ -21,7 +21,7 @@ const Login = () => {
       toast.error(error.message);
     } else {
       toast.success("Logged in!");
-      navigate("/");
+      navigate("/upload");
     }
   };
 
@@ -46,7 +46,7 @@ const Login = () => {
           className="w-full rounded-full border-border font-semibold flex items-center gap-2"
           onClick={async () => {
             const { error } = await lovable.auth.signInWithOAuth("google", {
-              redirect_uri: window.location.origin,
+              redirect_uri: window.location.origin + "/upload",
             });
             if (error) toast.error(error.message);
           }}
