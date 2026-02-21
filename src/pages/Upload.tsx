@@ -75,8 +75,8 @@ const Upload = () => {
     }
   };
 
-  // Strip markdown bold/italic asterisks for plain display
-  const stripMarkdown = (text: string) => text.replace(/\*{1,3}/g, "");
+  // Strip markdown bold/italic asterisks for plain display, but preserve bold markers for rendering
+  const stripMarkdown = (text: string) => text.replace(/\*{3,}/g, "");
 
   // Parse sections from the feedback text
   const parseSections = (text: string) => {
@@ -202,11 +202,18 @@ const Upload = () => {
                   <h4 className="text-base font-bold text-foreground mb-2">{section.title}</h4>
                 )}
                 {section.content.map((line, j) => {
+                  // Render **bold** segments inline
+                  const renderLine = (text: string) => {
+                    const parts = text.split(/\*\*(.*?)\*\*/g);
+                    return parts.map((part, k) =>
+                      k % 2 === 1 ? <strong key={k} className="font-bold text-foreground">{part}</strong> : part
+                    );
+                  };
                   const bulletMatch = line.match(/^[-•]\s+(.*)/);
                   if (bulletMatch) {
                     return (
                       <p key={j} className="ml-4 mb-1 before:content-['•'] before:mr-2 before:text-foreground/40">
-                        {bulletMatch[1]}
+                        {renderLine(bulletMatch[1])}
                       </p>
                     );
                   }
@@ -214,11 +221,11 @@ const Upload = () => {
                   if (numberedMatch) {
                     return (
                       <p key={j} className="ml-4 mb-1">
-                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{numberedMatch[2]}
+                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{renderLine(numberedMatch[2])}
                       </p>
                     );
                   }
-                  return <p key={j} className="mb-1">{line}</p>;
+                  return <p key={j} className="mb-1">{renderLine(line)}</p>;
                 })}
               </div>
             ))}
