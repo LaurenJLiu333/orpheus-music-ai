@@ -28,21 +28,16 @@ const Login = () => {
     }
   };
 
+  // If already logged in, redirect to upload
   if (!authLoading && user) {
-    return (
-      <main className="flex flex-col items-center justify-center min-h-[70vh] px-6">
-        <h1 className="text-6xl font-display font-bold text-center" style={{ color: "#200f3f" }}>
-          Welcome to Orpheus
-        </h1>
-        <p className="text-lg mt-4 text-center" style={{ color: "#200f3f" }}>Get started on your music journey</p>
-      </main>
-    );
+    navigate("/upload");
+    return null;
   }
 
   return (
     <main className="flex items-center justify-center min-h-[70vh] px-6">
       <div className="w-full max-w-sm">
-        <h1 className="text-3xl font-display font-bold text-center mb-8">Welcome Back</h1>
+        <h1 className="text-3xl font-display font-bold text-center mb-8">Welcome</h1>
         <form onSubmit={handleLogin} className="space-y-4">
           <Input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required className="rounded-xl bg-card border-border" />
           <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required className="rounded-xl bg-card border-border" />
