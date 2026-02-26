@@ -1,6 +1,6 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Upload as UploadIcon, X, FileAudio, Loader2, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +16,7 @@ const INSTRUMENTS = [
 const Upload = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [file, setFile] = useState<File | null>(null);
   const [feedback, setFeedback] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -23,6 +24,16 @@ const Upload = () => {
   const [dragActive, setDragActive] = useState(false);
   const [selectedInstruments, setSelectedInstruments] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  // Show welcome banner when user arrives after login
+  useEffect(() => {
+    if (user && !authLoading) {
+      setShowWelcome(true);
+      const timer = setTimeout(() => setShowWelcome(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [user, authLoading]);
 
   const handleFile = useCallback((f: File) => {
     if (f.name.match(/\.(mid|midi)$/i)) {
@@ -112,9 +123,19 @@ const Upload = () => {
 
   const sections = feedback ? parseSections(feedback) : [];
 
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split("@")[0] || "there";
+
   return (
     <main className="flex flex-col items-center px-6 py-10 max-w-3xl mx-auto">
-      {/* Upload area */}
+      {/* Welcome banner */}
+      {showWelcome && (
+        <div className="w-full mb-6 rounded-2xl border border-accent/30 bg-accent/10 p-6 text-center animate-in fade-in slide-in-from-top-4 duration-500">
+          <h2 className="text-2xl font-display font-bold text-foreground">
+            Welcome, {displayName}! 👋
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1">You're logged in and ready to analyze.</p>
+        </div>
+      )}
       <div
         onDragOver={e => { e.preventDefault(); setDragActive(true); }}
         onDragLeave={() => setDragActive(false)}
