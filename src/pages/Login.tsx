@@ -34,7 +34,7 @@ const Login = () => {
         <h1 className="text-6xl font-display font-bold text-center" style={{ color: "#200f3f" }}>
           Welcome to Orpheus
         </h1>
-        <p className="text-lg mt-4 text-center" style={{ color: "#200f3f", opacity: 0.7 }}>Get started on your music journey</p>
+        <p className="text-lg mt-4 text-center" style={{ color: "#200f3f" }}>Get started on your music journey</p>
       </main>
     );
   }
