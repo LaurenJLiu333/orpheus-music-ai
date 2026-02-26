@@ -46,10 +46,13 @@ const Login = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           <Input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required className="rounded-xl bg-card border-border" />
           <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required className="rounded-xl bg-card border-border" />
-          <label className="flex items-center gap-2 cursor-pointer select-none">
-            <input type="checkbox" checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} className="accent-primary w-4 h-4 rounded" />
-            <span className="text-sm text-muted-foreground">Remember me</span>
-          </label>
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input type="checkbox" checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} className="accent-primary w-4 h-4 rounded" />
+              <span className="text-sm text-muted-foreground">Remember me</span>
+            </label>
+            <Link to="/forgot-password" className="text-sm text-muted-foreground hover:text-foreground underline">Forgot password?</Link>
+          </div>
           <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground font-semibold">
             {loading ? "Logging in..." : "Login"}
           </Button>
