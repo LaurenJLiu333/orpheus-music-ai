@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +26,16 @@ const Login = () => {
       navigate("/upload");
     }
   };
+
+  if (!authLoading && user) {
+    return (
+      <main className="flex items-center justify-center min-h-[70vh] px-6">
+        <h1 className="text-4xl font-display font-bold text-foreground text-center">
+          Welcome to Orpheus
+        </h1>
+      </main>
+    );
+  }
 
   return (
     <main className="flex items-center justify-center min-h-[70vh] px-6">
