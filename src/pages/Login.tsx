@@ -10,6 +10,7 @@ import { toast } from "sonner";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
@@ -30,10 +31,10 @@ const Login = () => {
   if (!authLoading && user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[70vh] px-6">
-        <h1 className="text-6xl font-display font-bold text-foreground text-center">
+        <h1 className="text-6xl font-display font-bold text-center" style={{ color: "#200f3f" }}>
           Welcome to Orpheus
         </h1>
-        <p className="text-lg text-muted-foreground mt-4 text-center">Get started on your music journey</p>
+        <p className="text-lg mt-4 text-center" style={{ color: "#200f3f", opacity: 0.7 }}>Get started on your music journey</p>
       </main>
     );
   }
@@ -45,6 +46,10 @@ const Login = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           <Input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required className="rounded-xl bg-card border-border" />
           <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required className="rounded-xl bg-card border-border" />
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input type="checkbox" checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} className="accent-primary w-4 h-4 rounded" />
+            <span className="text-sm text-muted-foreground">Remember me</span>
+          </label>
           <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground font-semibold">
             {loading ? "Logging in..." : "Login"}
           </Button>
