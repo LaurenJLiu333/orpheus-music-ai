@@ -26,25 +26,25 @@ const ForgotPassword = () => {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-[70vh] px-6">
+    <main className="flex items-center justify-center min-h-[70vh] px-6" style={{ color: "#200f3f" }}>
       <div className="w-full max-w-sm">
         <h1 className="text-3xl font-display font-bold text-center mb-4">Forgot Password</h1>
         {sent ? (
           <div className="text-center space-y-4">
-            <p className="text-muted-foreground">We've sent a password reset link to <strong>{email}</strong>. Check your inbox.</p>
-            <Link to="/login" className="text-foreground underline text-sm">Back to Login</Link>
+            <p>We've sent a password reset link to <strong>{email}</strong>. Check your inbox.</p>
+            <Link to="/login" className="underline text-sm">Back to Login</Link>
           </div>
         ) : (
           <>
-            <p className="text-sm text-muted-foreground text-center mb-6">Enter your email and we'll send you a link to reset your password.</p>
+            <p className="text-sm text-center mb-6">Enter your email and we'll send you a link to reset your password.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
               <Input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required className="rounded-xl bg-card border-border" />
               <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground font-semibold">
                 {loading ? "Sending..." : "Send Reset Link"}
               </Button>
             </form>
-            <p className="text-center text-sm text-muted-foreground mt-4">
-              <Link to="/login" className="text-foreground underline">Back to Login</Link>
+            <p className="text-center text-sm mt-4">
+              <Link to="/login" className="underline">Back to Login</Link>
             </p>
           </>
         )}
