@@ -29,10 +29,11 @@ const Login = () => {
 
   if (!authLoading && user) {
     return (
-      <main className="flex items-center justify-center min-h-[70vh] px-6">
-        <h1 className="text-4xl font-display font-bold text-foreground text-center">
+      <main className="flex flex-col items-center justify-center min-h-[70vh] px-6">
+        <h1 className="text-6xl font-display font-bold text-foreground text-center">
           Welcome to Orpheus
         </h1>
+        <p className="text-lg text-muted-foreground mt-4 text-center">Get started on your music journey</p>
       </main>
     );
   }
