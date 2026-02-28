@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Upload as UploadIcon, X, FileAudio, Loader2, Check } from "lucide-react";
+import { Upload as UploadIcon, X, FileAudio, Loader2, Check, CheckCircle2, AlertTriangle, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const INSTRUMENTS = [
@@ -13,10 +13,15 @@ const INSTRUMENTS = [
   "Vibraphone", "Marimba", "Xylophone",
 ];
 
+interface FeedbackSection {
+  title: string;
+  status: "success" | "warning" | "suggestion";
+  content: string;
+}
+
 const Upload = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [file, setFile] = useState<File | null>(null);
   const [feedback, setFeedback] = useState("");
   const [analyzing, setAnalyzing] = useState(false);
@@ -26,7 +31,6 @@ const Upload = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [showWelcome, setShowWelcome] = useState(false);
 
-  // Show welcome banner when user arrives after login
   useEffect(() => {
     if (user && !authLoading) {
       setShowWelcome(true);
@@ -86,30 +90,47 @@ const Upload = () => {
     }
   };
 
-  // Strip markdown bold/italic asterisks for plain display, but preserve bold markers for rendering
   const stripMarkdown = (text: string) => text.replace(/\*{3,}/g, "");
 
-  // Parse sections from the feedback text
-  const parseSections = (text: string) => {
+  const parseFeedbackCards = (text: string): FeedbackSection[] => {
     const cleaned = stripMarkdown(text);
     const lines = cleaned.split("\n");
-    const sections: { title: string; content: string[] }[] = [];
-    let current: { title: string; content: string[] } | null = null;
+    const sections: FeedbackSection[] = [];
+    let current: { title: string; lines: string[] } | null = null;
 
     for (const line of lines) {
       const headerMatch = line.match(/^#{1,3}\s+(.+)/);
       if (headerMatch) {
-        if (current) sections.push(current);
-        current = { title: headerMatch[1].trim(), content: [] };
-      } else if (current) {
-        if (line.trim()) current.content.push(line);
-      } else if (line.trim()) {
-        if (!current) current = { title: "", content: [] };
-        current.content.push(line);
+        if (current) sections.push(buildSection(current));
+        current = { title: headerMatch[1].trim(), lines: [] };
+      } else if (current && line.trim()) {
+        current.lines.push(line);
       }
     }
-    if (current) sections.push(current);
+    if (current) sections.push(buildSection(current));
     return sections;
+  };
+
+  const buildSection = (raw: { title: string; lines: string[] }): FeedbackSection => {
+    const titleLower = raw.title.toLowerCase();
+    let status: FeedbackSection["status"] = "success";
+    const content = raw.lines.join("\n");
+
+    if (titleLower.includes("top 3") || titleLower.includes("suggestion") || titleLower.includes("fix")) {
+      status = "suggestion";
+    } else if (content.includes("⚠") || content.toLowerCase().includes("repetit") || content.toLowerCase().includes("weak") || content.toLowerCase().includes("warning")) {
+      status = "warning";
+    }
+    return { title: raw.title, status, content };
+  };
+
+  const renderContent = (text: string) => {
+    const parts = text.split(/\*\*(.*?)\*\*/g);
+    return parts.map((part, k) =>
+      k % 2 === 1
+        ? <strong key={k} className="font-bold" style={{ color: "#200f3f" }}>{part}</strong>
+        : <span key={k}>{part}</span>
+    );
   };
 
   if (!authLoading && !user) {
@@ -121,21 +142,29 @@ const Upload = () => {
     );
   }
 
-  const sections = feedback ? parseSections(feedback) : [];
-
+  const sections = feedback ? parseFeedbackCards(feedback) : [];
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split("@")[0] || "there";
+
+  const statusIcon = (status: FeedbackSection["status"]) => {
+    switch (status) {
+      case "success": return <CheckCircle2 size={16} className="text-green-600" />;
+      case "warning": return <AlertTriangle size={16} className="text-yellow-600" />;
+      case "suggestion": return <Sparkles size={16} style={{ color: "#200f3f" }} />;
+    }
+  };
 
   return (
     <main className="flex flex-col items-center px-6 py-10 max-w-3xl mx-auto">
-      {/* Welcome banner */}
       {showWelcome && (
         <div className="w-full mb-6 rounded-2xl border border-accent/30 bg-accent/10 p-6 text-center animate-in fade-in slide-in-from-top-4 duration-500">
-          <h2 className="text-2xl font-display font-bold text-foreground">
+          <h2 className="text-2xl font-display font-bold" style={{ color: "#200f3f" }}>
             Welcome, {displayName}! 👋
           </h2>
           <p className="text-sm text-muted-foreground mt-1">You're logged in and ready to analyze.</p>
         </div>
       )}
+
+      {/* Upload area */}
       <div
         onDragOver={e => { e.preventDefault(); setDragActive(true); }}
         onDragLeave={() => setDragActive(false)}
@@ -145,13 +174,7 @@ const Upload = () => {
           dragActive ? "border-accent bg-accent/10" : "border-border bg-card"
         }`}
       >
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".mid,.midi"
-          className="hidden"
-          onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
-        />
+        <input ref={inputRef} type="file" accept=".mid,.midi" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <UploadIcon className="mx-auto mb-4 text-foreground" size={48} />
         <h2 className="text-2xl font-bold text-foreground mb-2">UPLOAD</h2>
         <p className="text-sm text-muted-foreground">Drag and drop a .mid file or click to browse</p>
@@ -208,66 +231,48 @@ const Upload = () => {
 
       {error && <p className="text-destructive text-sm mt-4">{error}</p>}
 
-      {/* Feedback */}
-      <div className="w-full mt-8 rounded-2xl border border-border bg-card p-6 min-h-[200px]">
-        <h3 className="text-lg font-bold text-foreground mb-4">Feedback</h3>
+      {/* Feedback - card-based layout matching landing page */}
+      <div className="w-full mt-8">
+        <h3 className="text-lg font-bold mb-4" style={{ color: "#200f3f" }}>Feedback</h3>
         {analyzing ? (
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2 text-muted-foreground p-6">
             <Loader2 className="animate-spin" size={16} /> Analyzing your MIDI file...
           </div>
         ) : sections.length > 0 ? (
-          <div className="space-y-6 text-foreground/90 text-sm leading-relaxed">
-            {sections.map((section, i) => (
-              <div key={i}>
-                {section.title && (
-                  <h4 className="text-base font-bold text-foreground mb-2">{section.title}</h4>
-                )}
-                {section.content.map((line, j) => {
-                  // Split line by **bold** segments, rendering bold parts on their own line
-                  const renderLine = (text: string) => {
-                    const parts = text.split(/\*\*(.*?)\*\*/g);
-                    const elements: React.ReactNode[] = [];
-                    parts.forEach((part, k) => {
-                      if (k % 2 === 1) {
-                        elements.push(
-                          <span key={k} className="block font-bold text-foreground mt-2 mb-0.5">{part}</span>
-                        );
-                      } else if (part.trim()) {
-                        elements.push(<span key={k}>{part}</span>);
-                      }
-                    });
-                    return elements;
-                  };
-                  const bulletMatch = line.match(/^[-•]\s+(.*)/);
-                  if (bulletMatch) {
-                    return (
-                      <div key={j} className="ml-4 mb-1">
-                        {renderLine(bulletMatch[1])}
-                      </div>
-                    );
-                  }
-                  const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
-                  if (numberedMatch) {
-                    // Render bold inline for numbered items (e.g. Top 3 Fixes)
-                    const renderInline = (text: string) => {
-                      const parts = text.split(/\*\*(.*?)\*\*/g);
-                      return parts.map((part, k) =>
-                        k % 2 === 1 ? <strong key={k} className="font-bold text-foreground">{part}</strong> : part
-                      );
-                    };
-                    return (
-                      <div key={j} className="ml-4 mb-1">
-                        <span className="font-semibold mr-2">{numberedMatch[1]}.</span>{renderInline(numberedMatch[2])}
-                      </div>
-                    );
-                  }
-                  return <div key={j} className="mb-1">{renderLine(line)}</div>;
-                })}
+          <div className="rounded-2xl border border-border p-6 shadow-lg" style={{ background: "var(--gradient-card)" }}>
+            {file && (
+              <div className="flex items-center gap-3 mb-6">
+                <FileAudio size={20} style={{ color: "#200f3f" }} />
+                <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: {file.name}</span>
               </div>
-            ))}
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {sections.map((section, i) => (
+                <div
+                  key={i}
+                  className={`rounded-xl border p-5 ${
+                    section.status === "suggestion"
+                      ? "bg-background/30 border-foreground/20"
+                      : "bg-background/40 border-border"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    {statusIcon(section.status)}
+                    <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>{section.title}</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {section.content.split("\n").map((line, j) => (
+                      <p key={j} className="mb-1">{renderContent(line)}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
-          <p className="text-muted-foreground text-sm">Upload and analyze a MIDI file to see feedback here.</p>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <p className="text-muted-foreground text-sm">Upload and analyze a MIDI file to see feedback here.</p>
+          </div>
         )}
       </div>
     </main>

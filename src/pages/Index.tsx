@@ -8,9 +8,9 @@ import {
   BarChart3,
   Layers,
   Mic2,
+  Headphones,
   GraduationCap,
   Film,
-  Headphones,
   PenTool,
   CheckCircle2,
   AlertTriangle,
@@ -25,18 +25,14 @@ const Index = () => {
     <main className="flex flex-col items-center">
       {/* Hero Section */}
       <section className="relative w-full flex flex-col items-center px-6 pt-24 pb-20 overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-primary/10 blur-[120px] animate-glow-pulse pointer-events-none" />
-        <div className="absolute top-20 right-1/4 w-[400px] h-[300px] rounded-full bg-secondary/10 blur-[100px] animate-glow-pulse pointer-events-none" style={{ animationDelay: "1.5s" }} />
-
         <div className="relative z-10 text-center max-w-3xl">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-muted/50 text-sm text-muted-foreground mb-8">
-            <Sparkles size={14} className="text-primary" />
+            <Sparkles size={14} className="text-foreground" />
             AI-Powered Music Analysis
           </div>
-          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.1] mb-6">
+          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] mb-6" style={{ color: "#200f3f" }}>
             Improve Your Music{" "}
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#6c5ce7] to-[#00b894] bg-clip-text text-transparent">
               With AI
             </span>
           </h1>
@@ -46,15 +42,16 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               onClick={() => navigate("/upload")}
-              className="rounded-full px-8 py-3 text-base font-semibold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
+              className="rounded-full px-8 py-3 text-base font-semibold border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-primary-foreground transition-all"
+              variant="outline"
               size="lg"
             >
               Upload Composition
               <ArrowRight size={18} className="ml-2" />
             </Button>
             <Button
-              variant="outline"
-              className="rounded-full px-8 py-3 text-base font-semibold border-border text-foreground hover:bg-muted transition-colors"
+              variant="ghost"
+              className="rounded-full px-8 py-3 text-base font-semibold text-muted-foreground hover:text-foreground transition-colors"
               size="lg"
               onClick={() => document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })}
             >
@@ -65,34 +62,34 @@ const Index = () => {
 
         {/* Hero Visual Card */}
         <div className="relative z-10 mt-16 w-full max-w-2xl animate-float">
-          <div className="rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-6 shadow-2xl shadow-primary/5">
+          <div className="rounded-2xl border border-border p-6 shadow-xl" style={{ background: "var(--gradient-card)" }}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-3 h-3 rounded-full bg-destructive/60" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-              <div className="w-3 h-3 rounded-full bg-green-500/60" />
-              <span className="ml-2 text-xs text-muted-foreground font-mono">orpheus-analysis</span>
+              <div className="w-3 h-3 rounded-full bg-red-400/60" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+              <div className="w-3 h-3 rounded-full bg-green-400/60" />
+              <span className="ml-2 text-xs text-foreground/60 font-mono">orpheus-analysis</span>
             </div>
-            <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-muted/50 border border-border">
-              <Upload size={16} className="text-primary" />
+            <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/40 border border-border">
+              <Upload size={16} className="text-foreground" />
               <span className="text-sm text-foreground">piano_piece.mid</span>
               <span className="ml-auto text-xs text-muted-foreground">Uploaded</span>
             </div>
             <div className="space-y-3 px-1">
-              <p className="text-xs font-semibold text-primary uppercase tracking-wider">AI Analysis</p>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#200f3f" }}>AI Analysis</p>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Harmony Score</span>
                 <span className="text-sm font-semibold text-foreground">8.2 / 10</span>
               </div>
-              <div className="w-full h-1.5 rounded-full bg-muted">
-                <div className="h-full rounded-full bg-gradient-to-r from-primary to-secondary" style={{ width: "82%" }} />
+              <div className="w-full h-1.5 rounded-full bg-background/50">
+                <div className="h-full rounded-full bg-gradient-to-r from-[#6c5ce7] to-[#00b894]" style={{ width: "82%" }} />
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Melody Variation</span>
                 <span className="text-sm font-semibold text-foreground">Medium</span>
               </div>
-              <div className="mt-3 px-4 py-3 rounded-xl bg-primary/10 border border-primary/20">
+              <div className="mt-3 px-4 py-3 rounded-xl bg-background/30 border border-border">
                 <p className="text-sm text-foreground">
-                  <span className="text-primary font-medium">Suggestion:</span> Try modulation in bar 16 to add harmonic interest.
+                  <span className="font-medium" style={{ color: "#200f3f" }}>Suggestion:</span> Try modulation in bar 16 to add harmonic interest.
                 </p>
               </div>
             </div>
@@ -102,43 +99,43 @@ const Index = () => {
 
       {/* Product Demo Section */}
       <section id="demo" className="w-full flex flex-col items-center px-6 py-24">
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-4" style={{ color: "#200f3f" }}>
           See How Orpheus Analyzes Your Music
         </h2>
         <p className="text-muted-foreground text-center max-w-xl mb-14">
           Deep analysis of every dimension of your composition.
         </p>
-        <div className="w-full max-w-3xl rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-8 shadow-xl shadow-primary/5">
+        <div className="w-full max-w-3xl rounded-2xl border border-border p-8 shadow-lg" style={{ background: "var(--gradient-card)" }}>
           <div className="flex items-center gap-3 mb-6">
-            <Music size={20} className="text-primary" />
-            <span className="text-foreground font-semibold">Composition: Piano Study</span>
+            <Music size={20} style={{ color: "#200f3f" }} />
+            <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: Piano Study</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="rounded-xl bg-muted/40 border border-border p-5">
+            <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 size={16} className="text-green-400" />
+                <CheckCircle2 size={16} className="text-green-600" />
                 <span className="text-sm font-semibold text-foreground">Harmony</span>
               </div>
               <p className="text-sm text-muted-foreground">Strong tonal center detected throughout.</p>
             </div>
-            <div className="rounded-xl bg-muted/40 border border-border p-5">
+            <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle size={16} className="text-yellow-400" />
+                <AlertTriangle size={16} className="text-yellow-600" />
                 <span className="text-sm font-semibold text-foreground">Melody</span>
               </div>
               <p className="text-sm text-muted-foreground">Phrase repetition detected in bars 8–14.</p>
             </div>
-            <div className="rounded-xl bg-muted/40 border border-border p-5">
+            <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 size={16} className="text-green-400" />
+                <CheckCircle2 size={16} className="text-green-600" />
                 <span className="text-sm font-semibold text-foreground">Structure</span>
               </div>
               <p className="text-sm text-muted-foreground">Clear A-B-A form identified.</p>
             </div>
-            <div className="rounded-xl bg-primary/10 border border-primary/20 p-5">
+            <div className="rounded-xl bg-background/30 border border-foreground/20 p-5">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles size={16} className="text-primary" />
-                <span className="text-sm font-semibold text-foreground">AI Suggestion</span>
+                <Sparkles size={16} style={{ color: "#200f3f" }} />
+                <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>AI Suggestion</span>
               </div>
               <p className="text-sm text-muted-foreground">Introduce a secondary dominant before bar 18.</p>
             </div>
@@ -148,7 +145,7 @@ const Index = () => {
 
       {/* How It Works */}
       <section id="how-it-works" className="w-full flex flex-col items-center px-6 py-24">
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-4" style={{ color: "#200f3f" }}>
           How It Works
         </h2>
         <p className="text-muted-foreground text-center max-w-xl mb-14">
@@ -162,14 +159,14 @@ const Index = () => {
           ].map((item) => (
             <div
               key={item.step}
-              className="group rounded-2xl border border-border p-8 hover:border-primary/40 transition-colors"
+              className="group rounded-2xl border border-border p-8 hover:shadow-lg transition-all"
               style={{ background: "var(--gradient-card)" }}
             >
-              <span className="text-xs font-mono text-primary mb-4 block">{item.step}</span>
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                <item.icon size={24} className="text-primary" />
+              <span className="text-xs font-mono text-muted-foreground mb-4 block">{item.step}</span>
+              <div className="w-12 h-12 rounded-xl bg-background/40 flex items-center justify-center mb-5">
+                <item.icon size={24} style={{ color: "#200f3f" }} />
               </div>
-              <h3 className="text-lg font-display font-bold text-foreground mb-2">{item.title}</h3>
+              <h3 className="text-lg font-display font-bold mb-2" style={{ color: "#200f3f" }}>{item.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             </div>
           ))}
@@ -178,7 +175,7 @@ const Index = () => {
 
       {/* Features Section */}
       <section id="features" className="w-full flex flex-col items-center px-6 py-24">
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-4" style={{ color: "#200f3f" }}>
           Features
         </h2>
         <p className="text-muted-foreground text-center max-w-xl mb-14">
@@ -193,13 +190,13 @@ const Index = () => {
           ].map((f, i) => (
             <div
               key={i}
-              className="group rounded-2xl border border-border p-8 hover:border-primary/40 transition-colors"
+              className="group rounded-2xl border border-border p-8 hover:shadow-lg transition-all"
               style={{ background: "var(--gradient-card)" }}
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                <f.icon size={24} className="text-primary" />
+              <div className="w-12 h-12 rounded-xl bg-background/40 flex items-center justify-center mb-5">
+                <f.icon size={24} style={{ color: "#200f3f" }} />
               </div>
-              <h3 className="text-lg font-display font-bold text-foreground mb-2">{f.title}</h3>
+              <h3 className="text-lg font-display font-bold mb-2" style={{ color: "#200f3f" }}>{f.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
           ))}
@@ -208,7 +205,7 @@ const Index = () => {
 
       {/* Built for Composers */}
       <section className="w-full flex flex-col items-center px-6 py-24">
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-center text-foreground mb-4">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-4" style={{ color: "#200f3f" }}>
           Built for Composers
         </h2>
         <p className="text-muted-foreground text-center max-w-xl mb-14">
@@ -221,9 +218,9 @@ const Index = () => {
             { icon: PenTool, label: "Music Producers" },
             { icon: Music, label: "Classical Musicians" },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:border-primary/40 transition-colors" style={{ background: "var(--gradient-card)" }}>
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                <item.icon size={28} className="text-primary" />
+            <div key={i} className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:shadow-lg transition-all" style={{ background: "var(--gradient-card)" }}>
+              <div className="w-14 h-14 rounded-xl bg-background/40 flex items-center justify-center">
+                <item.icon size={28} style={{ color: "#200f3f" }} />
               </div>
               <span className="text-sm font-medium text-foreground text-center">{item.label}</span>
             </div>
@@ -233,9 +230,8 @@ const Index = () => {
 
       {/* Final CTA */}
       <section className="w-full flex flex-col items-center px-6 py-24">
-        <div className="relative w-full max-w-3xl rounded-3xl border border-border p-12 md:p-16 text-center overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 pointer-events-none" />
-          <h2 className="relative text-3xl md:text-5xl font-display font-bold text-foreground mb-4">
+        <div className="relative w-full max-w-3xl rounded-3xl border border-border p-12 md:p-16 text-center overflow-hidden" style={{ background: "var(--gradient-card)" }}>
+          <h2 className="relative text-3xl md:text-5xl font-display font-bold mb-4" style={{ color: "#200f3f" }}>
             Start Improving Your Music Today
           </h2>
           <p className="relative text-muted-foreground max-w-lg mx-auto mb-8">
@@ -243,7 +239,8 @@ const Index = () => {
           </p>
           <Button
             onClick={() => navigate("/upload")}
-            className="relative rounded-full px-10 py-3 text-base font-semibold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
+            className="relative rounded-full px-10 py-3 text-base font-semibold border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-primary-foreground transition-all"
+            variant="outline"
             size="lg"
           >
             Upload Composition
@@ -257,8 +254,8 @@ const Index = () => {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-sm text-muted-foreground">© 2026 Orpheus Music AI. All rights reserved.</span>
           <div className="flex items-center gap-1">
-            <Music size={16} className="text-primary" />
-            <span className="text-sm font-display font-semibold text-foreground">Orpheus</span>
+            <Music size={16} style={{ color: "#200f3f" }} />
+            <span className="text-sm font-display font-semibold" style={{ color: "#200f3f" }}>Orpheus</span>
           </div>
         </div>
       </footer>
