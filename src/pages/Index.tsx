@@ -71,7 +71,7 @@ const Index = () => {
             </div>
             <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/40 border border-border">
               <Upload size={16} className="text-foreground" />
-              <span className="text-sm text-foreground">piano_piece.midi</span>
+              <span className="text-sm text-foreground">Cello.midi</span>
               <span className="ml-auto text-xs text-muted-foreground">Uploaded</span>
             </div>
             <div className="space-y-3 px-1">
@@ -108,36 +108,49 @@ const Index = () => {
         <div className="w-full max-w-3xl rounded-2xl border border-border p-8 shadow-lg" style={{ background: "var(--gradient-card)" }}>
           <div className="flex items-center gap-3 mb-6">
             <Music size={20} style={{ color: "#200f3f" }} />
-            <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: Piano Study</span>
+            <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: Cello.midi</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 size={16} className="text-green-600" />
-                <span className="text-sm font-semibold text-foreground">Harmony</span>
+                <span className="text-sm font-semibold text-foreground">Melody Analysis</span>
               </div>
-              <p className="text-sm text-muted-foreground">Strong tonal center detected throughout.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-bold" style={{ color: "#200f3f" }}>Contour:</span> The melody spans C2 to A4, showing a healthy rise from the bass register into the tenor range.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Repetition:</span> With only 8 unique pitches across 84 notes, the motif is likely highly repetitive.
+              </p>
             </div>
             <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
                 <AlertTriangle size={16} className="text-yellow-600" />
-                <span className="text-sm font-semibold text-foreground">Melody</span>
+                <span className="text-sm font-semibold text-foreground">Harmony and Chord Fit</span>
               </div>
-              <p className="text-sm text-muted-foreground">Phrase repetition detected in bars 8–14.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-bold" style={{ color: "#200f3f" }}>Scale:</span> The pitch classes suggest a pure C Major or A Natural Minor tonality.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Clashes:</span> The lack of accidentals suggests a safe but potentially static harmonic progression.
+              </p>
             </div>
             <div className="rounded-xl bg-background/40 border border-border p-5">
               <div className="flex items-center gap-2 mb-2">
                 <CheckCircle2 size={16} className="text-green-600" />
-                <span className="text-sm font-semibold text-foreground">Structure</span>
+                <span className="text-sm font-semibold text-foreground">Range and Playability</span>
               </div>
-              <p className="text-sm text-muted-foreground">Clear A-B-A form identified.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-bold" style={{ color: "#200f3f" }}>Range:</span> C2 to A4 is perfectly idiomatic for Cello.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Playability:</span> Avoid rapid leaps from C2 to A4 to ensure clean intonation.
+              </p>
             </div>
             <div className="rounded-xl bg-background/30 border border-foreground/20 p-5">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles size={16} style={{ color: "#200f3f" }} />
-                <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>AI Suggestion</span>
+                <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>Top 3 Fixes</span>
               </div>
-              <p className="text-sm text-muted-foreground">Introduce a secondary dominant before bar 18.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                1. Vary velocity (60–100) to simulate realistic bowing and phrasing.
+                <br />2. Introduce a G# leading tone to strengthen A Minor cadences.
+                <br />3. Break repetitive patterns with dotted rhythms or rests.
+              </p>
             </div>
           </div>
         </div>
