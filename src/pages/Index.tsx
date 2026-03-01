@@ -26,10 +26,6 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative w-full flex flex-col items-center px-6 pt-24 pb-20 overflow-hidden">
         <div className="relative z-10 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-muted/50 text-sm text-muted-foreground mb-8">
-            <Sparkles size={14} className="text-foreground" />
-            AI-Powered Music Analysis
-          </div>
           <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] mb-6" style={{ color: "#200f3f" }}>
             Improve Your Music{" "}
             <span className="bg-gradient-to-r from-[#6c5ce7] to-[#00b894] bg-clip-text text-transparent">
@@ -48,14 +44,6 @@ const Index = () => {
             >
               Upload Composition
               <ArrowRight size={18} className="ml-2" />
-            </Button>
-            <Button
-              variant="ghost"
-              className="rounded-full px-8 py-3 text-base font-semibold text-muted-foreground hover:text-foreground transition-colors"
-              size="lg"
-              onClick={() => document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              See Example Feedback
             </Button>
           </div>
         </div>
