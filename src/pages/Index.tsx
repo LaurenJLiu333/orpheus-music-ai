@@ -60,41 +60,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Hero Visual Card */}
-        <div className="relative z-10 mt-16 w-full max-w-2xl animate-float">
-          <div className="rounded-2xl border border-border p-6 shadow-xl" style={{ background: "var(--gradient-card)" }}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-3 h-3 rounded-full bg-red-400/60" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-              <div className="w-3 h-3 rounded-full bg-green-400/60" />
-              <span className="ml-2 text-xs text-foreground/60 font-mono">orpheus-analysis</span>
-            </div>
-            <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/40 border border-border">
-              <Upload size={16} className="text-foreground" />
-              <span className="text-sm text-foreground">Cello.midi</span>
-              <span className="ml-auto text-xs text-muted-foreground">Uploaded</span>
-            </div>
-            <div className="space-y-3 px-1">
-              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#200f3f" }}>AI Analysis</p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Harmony Score</span>
-                <span className="text-sm font-semibold text-foreground">8.2 / 10</span>
-              </div>
-              <div className="w-full h-1.5 rounded-full bg-background/50">
-                <div className="h-full rounded-full bg-gradient-to-r from-[#6c5ce7] to-[#00b894]" style={{ width: "82%" }} />
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Melody Variation</span>
-                <span className="text-sm font-semibold text-foreground">Medium</span>
-              </div>
-              <div className="mt-3 px-4 py-3 rounded-xl bg-background/30 border border-border">
-                <p className="text-sm text-foreground">
-                  <span className="font-medium" style={{ color: "#200f3f" }}>Suggestion:</span> Try modulation in bar 16 to add harmonic interest.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Product Demo Section */}
@@ -119,6 +84,7 @@ const Index = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 <span className="font-bold" style={{ color: "#200f3f" }}>Contour:</span> The melody spans C2 to A4, showing a healthy rise from the bass register into the tenor range.
                 <br /><span className="font-bold" style={{ color: "#200f3f" }}>Repetition:</span> With only 8 unique pitches across 84 notes, the motif is likely highly repetitive.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Suggestions:</span> Introduce more chromatic passing tones or leaps to break the C-major/A-minor diatonic predictability. Use the A4 climax sparingly to maintain its emotional impact. Ensure the 12-bar structure includes a clear B-section or melodic variation to avoid listener fatigue.
               </p>
             </div>
             <div className="rounded-xl bg-background/40 border border-border p-5">
@@ -128,7 +94,19 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 <span className="font-bold" style={{ color: "#200f3f" }}>Scale:</span> The pitch classes suggest a pure C Major or A Natural Minor tonality.
-                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Clashes:</span> The lack of accidentals suggests a safe but potentially static harmonic progression.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Voice-Leading:</span> As a solo Cello piece, the harmony is implied. Ensure that leaps between low C2 and higher registers account for the physical shift on the fingerboard.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Clashes:</span> With no G# or F#, the harmony feels modal. If aiming for a Classical feel, introduce a leading tone (G#) for A minor cadences. The lack of accidentals suggests a safe but potentially static harmonic progression.
+              </p>
+            </div>
+            <div className="rounded-xl bg-background/40 border border-border p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 size={16} className="text-green-600" />
+                <span className="text-sm font-semibold text-foreground">Rhythm and Meter</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-bold" style={{ color: "#200f3f" }}>Patterns:</span> The note count suggests an average of 7 notes per bar.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Flow:</span> Ensure rhythmic variety; avoid constant eighth notes.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Syncopation:</span> Use ties across barlines to create a more lyrical, "vocal" quality idiomatic to the cello. Maintain a steady pulse for the 12-bar phrasing.
               </p>
             </div>
             <div className="rounded-xl bg-background/40 border border-border p-5">
@@ -138,7 +116,17 @@ const Index = () => {
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 <span className="font-bold" style={{ color: "#200f3f" }}>Range:</span> C2 to A4 is perfectly idiomatic for Cello.
-                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Playability:</span> Avoid rapid leaps from C2 to A4 to ensure clean intonation.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Playability:</span> C2 is the open C-string, providing a resonant foundation. A4 is reachable in thumb position or high positions on the A-string. Avoid rapid leaps from C2 to A4 to ensure the performer can maintain clean intonation.
+              </p>
+            </div>
+            <div className="rounded-xl bg-background/40 border border-border p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckCircle2 size={16} className="text-green-600" />
+                <span className="text-sm font-semibold text-foreground">Style and Genre Consistency</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-bold" style={{ color: "#200f3f" }}>Consistency:</span> The limited pitch set suggests a Minimalist or Neo-Classical style.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>Dynamics:</span> The average velocity of 80 is static. For a solo string instrument, incorporate crescendos and diminuendos to mimic natural bow pressure changes and enhance the expressive quality.
               </p>
             </div>
             <div className="rounded-xl bg-background/30 border border-foreground/20 p-5">
@@ -147,9 +135,9 @@ const Index = () => {
                 <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>Top 3 Fixes</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                1. Vary velocity (60–100) to simulate realistic bowing and phrasing.
-                <br />2. Introduce a G# leading tone to strengthen A Minor cadences.
-                <br />3. Break repetitive patterns with dotted rhythms or rests.
+                <span className="font-bold" style={{ color: "#200f3f" }}>1. Dynamic Variation:</span> Vary velocity (60–100) to simulate realistic bowing and phrasing.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>2. Harmonic Interest:</span> Introduce a G# (leading tone) if the piece is in A Minor to strengthen cadences.
+                <br /><span className="font-bold" style={{ color: "#200f3f" }}>3. Rhythmic Diversity:</span> Break repetitive patterns with dotted rhythms or rests to allow the "instrument" to breathe, improving the overall lyrical flow and realism.
               </p>
             </div>
           </div>
