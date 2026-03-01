@@ -71,7 +71,7 @@ const Index = () => {
             </div>
             <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/40 border border-border">
               <Upload size={16} className="text-foreground" />
-              <span className="text-sm text-foreground">piano_piece.mid</span>
+              <span className="text-sm text-foreground">piano_piece.midi</span>
               <span className="ml-auto text-xs text-muted-foreground">Uploaded</span>
             </div>
             <div className="space-y-3 px-1">

@@ -239,7 +239,7 @@ const Upload = () => {
             <Loader2 className="animate-spin" size={16} /> Analyzing your MIDI file...
           </div>
         ) : sections.length > 0 ? (
-          <div className="rounded-2xl border border-border p-6 shadow-lg" style={{ background: "var(--gradient-card)" }}>
+          <div className="rounded-2xl border border-border p-6 shadow-lg bg-muted">
             {file && (
               <div className="flex items-center gap-3 mb-6">
                 <FileAudio size={20} style={{ color: "#200f3f" }} />
