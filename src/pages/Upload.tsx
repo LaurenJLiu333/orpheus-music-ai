@@ -125,12 +125,19 @@ const Upload = () => {
   };
 
   const renderContent = (text: string) => {
+    // Split on bold markers **...**
     const parts = text.split(/\*\*(.*?)\*\*/g);
-    return parts.map((part, k) =>
-      k % 2 === 1
-        ? <strong key={k} className="font-bold" style={{ color: "#200f3f" }}>{part}</strong>
-        : <span key={k}>{part}</span>
-    );
+    const elements: React.ReactNode[] = [];
+    parts.forEach((part, k) => {
+      if (k % 2 === 1) {
+        // This is a bold subheading — put it on a new line
+        elements.push(<br key={`br-${k}`} />);
+        elements.push(<strong key={k} className="font-bold" style={{ color: "#200f3f" }}>{part}</strong>);
+      } else {
+        elements.push(<span key={k}>{part}</span>);
+      }
+    });
+    return elements;
   };
 
   if (!authLoading && !user) {
