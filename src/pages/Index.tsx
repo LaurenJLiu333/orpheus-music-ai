@@ -250,15 +250,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="w-full border-t border-border py-8 px-6">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-sm text-muted-foreground">© 2026 Orpheus Music AI. All rights reserved.</span>
-          <div className="flex items-center gap-1">
-            <Music size={16} style={{ color: "#200f3f" }} />
-            <span className="text-sm font-display font-semibold" style={{ color: "#200f3f" }}>Orpheus</span>
-          </div>
-        </div>
-      </footer>
+      <footer className="w-full py-8 px-6" />
     </main>
   );
 };
