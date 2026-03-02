@@ -38,7 +38,7 @@ const floatingNote = (x: string, y: string, delay: number, rotate: number, size:
   style: { left: x, top: y, fontSize: size },
   initial: { opacity: 0, rotate: rotate - 15, scale: 0.7 },
   animate: {
-    opacity: [0, 0.18, 0.12, 0.18],
+    opacity: [0, 0.5, 0.3, 0.5],
     rotate: [rotate - 15, rotate + 10, rotate - 5, rotate + 15],
     y: [0, -18, 5, -12],
     scale: [0.7, 1, 0.95, 1],
