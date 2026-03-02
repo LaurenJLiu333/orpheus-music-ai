@@ -161,7 +161,7 @@ const Upload = () => {
   };
 
   return (
-    <main className="flex flex-col items-center px-6 py-10 max-w-3xl mx-auto">
+    <main className="flex flex-col items-center px-6 py-10 max-w-5xl mx-auto">
       {showWelcome && (
         <div className="w-full mb-6 rounded-2xl border border-accent/30 bg-accent/10 p-6 text-center animate-in fade-in slide-in-from-top-4 duration-500">
           <h2 className="text-2xl font-display font-bold" style={{ color: "#200f3f" }}>
@@ -253,7 +253,7 @@ const Upload = () => {
                 <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: {file.name}</span>
               </div>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {sections.map((section, i) => (
                 <div
                   key={i}
