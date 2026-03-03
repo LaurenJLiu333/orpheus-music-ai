@@ -18,13 +18,13 @@
     --primary: 270 50% 15%;
     --primary-foreground: 50 33% 93%;
 
-    --secondary: 160 50% 72%;
+    --secondary: 160 40% 80%;
     --secondary-foreground: 270 50% 15%;
 
     --muted: 50 20% 88%;
     --muted-foreground: 270 20% 40%;
 
-    --accent: 210 70% 68%;
+    --accent: 210 60% 75%;
     --accent-foreground: 270 50% 15%;
 
     --destructive: 0 84% 60%;
@@ -36,22 +36,10 @@
 
     --radius: 0.75rem;
 
-    /* Vibrant gradients */
-    --color-coral: 12 90% 65%;
-    --color-violet: 270 70% 60%;
-    --color-teal: 170 60% 50%;
-    --color-amber: 38 95% 60%;
-    --color-rose: 340 80% 65%;
-    --color-sky: 200 85% 60%;
-
-    --gradient-card: linear-gradient(135deg, #a8edea, #fed6e3);
-    --gradient-button: linear-gradient(135deg, #a18cd1, #fbc2eb);
-    --gradient-hero: linear-gradient(135deg, #ffecd2, #fcb69f);
-    --gradient-nav: linear-gradient(135deg, #a8edea, #fed6e3);
-    --gradient-violet: linear-gradient(135deg, #c471f5, #fa71cd);
-    --gradient-ocean: linear-gradient(135deg, #43e97b, #38f9d7);
-    --gradient-sunset: linear-gradient(135deg, #f093fb, #f5576c);
-    --gradient-sky: linear-gradient(135deg, #4facfe, #00f2fe);
+    --gradient-card: linear-gradient(135deg, #cdffd8, #94b9ff);
+    --gradient-button: linear-gradient(135deg, #cdffd8, #94b9ff);
+    --gradient-hero: linear-gradient(135deg, #cdffd8, #94b9ff);
+    --gradient-nav: linear-gradient(135deg, #cdffd8, #94b9ff);
 
     --chat-dark: 270 50% 12%;
     --chat-dark-foreground: 50 33% 93%;
