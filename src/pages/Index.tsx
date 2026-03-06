@@ -80,68 +80,60 @@ const floatingNote = (x: string, y: string, delay: number, rotate: number, size:
   },
 });
 
-// Animated equalizer bars for the demo section
+// Animated equalizer bars
 const EqualizerBars = () => (
   <div className="flex items-end gap-1 h-8">
     {[0.3, 0.7, 0.5, 1, 0.4, 0.8, 0.6].map((height, i) => (
       <motion.div
         key={i}
-        className="w-1.5 rounded-full bg-gradient-to-t from-[#6c5ce7] to-[#00b894]"
+        className="w-1.5 rounded-full bg-gradient-to-t from-[hsl(270,50%,15%)] to-[hsl(160,50%,40%)]"
         initial={{ height: 4 }}
         animate={{ height: [4, height * 32, 8, height * 24, 4] }}
-        transition={{
-          duration: 1.8,
-          delay: i * 0.15,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        }}
+        transition={{ duration: 1.8, delay: i * 0.15, repeat: Infinity, ease: "easeInOut" as const }}
       />
     ))}
   </div>
 );
 
-// Animated waveform for How It Works
+// Animated waveform
 const Waveform = () => (
   <div className="flex items-center gap-0.5 h-6">
     {Array.from({ length: 20 }).map((_, i) => (
       <motion.div
         key={i}
-        className="w-1 rounded-full bg-gradient-to-t from-[#6c5ce7]/40 to-[#00b894]/60"
+        className="w-1 rounded-full bg-gradient-to-t from-foreground/30 to-accent/60"
         initial={{ height: 4 }}
         animate={{ height: [4, Math.random() * 20 + 6, 4] }}
-        transition={{
-          duration: 1.2 + Math.random() * 0.8,
-          delay: i * 0.05,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        }}
+        transition={{ duration: 1.2 + Math.random() * 0.8, delay: i * 0.05, repeat: Infinity, ease: "easeInOut" as const }}
       />
     ))}
   </div>
 );
 
-// Animated staff lines for Features
-const StaffLines = () => (
-  <div className="relative w-full h-16 overflow-hidden opacity-20">
-    {[0, 1, 2, 3, 4].map((line) => (
-      <div key={line} className="absolute w-full h-px bg-foreground/30" style={{ top: `${line * 25}%` }} />
-    ))}
-    {[0, 1, 2, 3, 4, 5].map((note, i) => (
+// Concentric rings decoration
+const ConcentricRings = () => (
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+    {[280, 400, 520].map((size, i) => (
       <motion.div
         key={i}
-        className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-[#6c5ce7] to-[#00b894]"
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: [i * 60 + 20, i * 60 + 30, i * 60 + 20], opacity: [0, 1, 0.6, 1] }}
-        transition={{
-          duration: 3,
-          delay: i * 0.4,
-          repeat: Infinity,
-          repeatType: "mirror" as const,
-          ease: "easeInOut" as const,
-        }}
-        style={{ top: `${[10, 35, 20, 60, 45, 80][i]}%` }}
+        className="absolute rounded-full border border-foreground/5"
+        style={{ width: size, height: size }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, delay: i * 0.2 }}
       />
     ))}
+  </div>
+);
+
+// Dot pattern
+const DotPattern = ({ className = "" }: { className?: string }) => (
+  <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
+    <div className="absolute inset-0 opacity-[0.04]" style={{
+      backgroundImage: "radial-gradient(hsl(270 50% 15%) 1px, transparent 1px)",
+      backgroundSize: "24px 24px",
+    }} />
   </div>
 );
 
@@ -154,9 +146,11 @@ const Index = () => {
 
   return (
     <main className="flex flex-col items-center overflow-hidden">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh] justify-center">
-        {/* Floating music notes */}
+
+      {/* ═══════════════════════════════════════════════════════════
+          HERO — Clean with floating notes + parallax
+      ═══════════════════════════════════════════════════════════ */}
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]">
         {[
           { symbol: "𝄞", ...floatingNote("6%", "10%", 0, -20, 90) },
           { symbol: "♪", ...floatingNote("88%", "15%", 0.4, 15, 72) },
@@ -170,26 +164,25 @@ const Index = () => {
           { symbol: "♬", ...floatingNote("25%", "85%", 2, -25, 54) },
         ].map(({ symbol, ...props }, i) => (
           <motion.span key={i} {...props}>
-            <span className="font-display font-bold bg-gradient-to-br from-[#6c5ce7]/60 to-[#00b894]/50 bg-clip-text text-transparent">
+            <span className="font-display font-bold bg-gradient-to-br from-foreground/40 to-accent/50 bg-clip-text text-transparent">
               {symbol}
             </span>
           </motion.span>
         ))}
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 text-center max-w-3xl">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 text-center max-w-3xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-            className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] mb-6"
-            style={{ color: "#200f3f" }}
+            className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1] mb-6 text-foreground"
           >
             Improve Your Music{" "}
             <motion.span
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="bg-gradient-to-r from-[#6c5ce7] to-[#00b894] bg-clip-text text-transparent inline-block"
+              className="bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent inline-block"
             >
               With AI
             </motion.span>
@@ -206,7 +199,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex items-center justify-center"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Button
@@ -221,7 +214,6 @@ const Index = () => {
             </motion.div>
           </motion.div>
 
-          {/* Animated equalizer under CTA */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -233,150 +225,158 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Product Demo Section - with scale-in cards and floating waveform */}
+      {/* ═══════════════════════════════════════════════════════════
+          DEMO — Dot pattern bg, soft card container
+      ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="demo"
-        className="relative w-full flex flex-col items-center px-6 py-24"
+        className="relative w-full flex flex-col items-center px-6 py-28"
+        style={{ background: "linear-gradient(180deg, hsl(50 33% 93%) 0%, hsl(50 30% 89%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        {/* Background waveform decoration */}
-        <motion.div
-          className="absolute top-8 left-1/2 -translate-x-1/2 w-64 opacity-30"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 0.3, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          <Waveform />
-        </motion.div>
+        <DotPattern />
 
-        <motion.h2
-          variants={fadeUp}
-          custom={0}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-4"
-          style={{ color: "#200f3f" }}
-        >
-          See How Orpheus Analyzes Your Music
-        </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
-          Deep analysis of every dimension of your composition.
-        </motion.p>
-        <motion.div
-          variants={scaleIn}
-          custom={2}
-          className="w-full max-w-5xl rounded-2xl border border-border p-8 shadow-lg"
-          style={{ background: "var(--gradient-card)" }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}>
-              <Music size={20} style={{ color: "#200f3f" }} />
-            </motion.div>
-            <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: Cello.midi</span>
-            <div className="ml-auto">
-              <EqualizerBars />
-            </div>
-          </div>
+        <motion.div className="relative z-10 flex flex-col items-center w-full max-w-5xl">
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={0}
+            className="flex items-center gap-3 mb-4"
           >
-            {[
-              {
-                icon: <CheckCircle2 size={16} className="text-green-600" />,
-                title: "Melody Analysis",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>Contour:</span> The melody spans C2 to A4, showing a healthy rise from the bass register into the tenor range.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Repetition:</span> With only 8 unique pitches across 84 notes, the motif is likely highly repetitive.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Suggestions:</span> Introduce more chromatic passing tones or leaps to break the C-major/A-minor diatonic predictability. Use the A4 climax sparingly to maintain its emotional impact. Ensure the 12-bar structure includes a clear B-section or melodic variation to avoid listener fatigue.
-                  </>
-                ),
-              },
-              {
-                icon: <AlertTriangle size={16} className="text-yellow-600" />,
-                title: "Harmony and Chord Fit",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>Scale:</span> The pitch classes suggest a pure C Major or A Natural Minor tonality.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Voice-Leading:</span> As a solo Cello piece, the harmony is implied. Ensure that leaps between low C2 and higher registers account for the physical shift on the fingerboard.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Clashes:</span> With no G# or F#, the harmony feels modal. If aiming for a Classical feel, introduce a leading tone (G#) for A minor cadences. The lack of accidentals suggests a safe but potentially static harmonic progression.
-                  </>
-                ),
-              },
-              {
-                icon: <CheckCircle2 size={16} className="text-green-600" />,
-                title: "Rhythm and Meter",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>Patterns:</span> The note count suggests an average of 7 notes per bar.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Flow:</span> Ensure rhythmic variety; avoid constant eighth notes.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Syncopation:</span> Use ties across barlines to create a more lyrical, "vocal" quality idiomatic to the cello. Maintain a steady pulse for the 12-bar phrasing.
-                  </>
-                ),
-              },
-              {
-                icon: <CheckCircle2 size={16} className="text-green-600" />,
-                title: "Range and Playability",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>Range:</span> C2 to A4 is perfectly idiomatic for Cello.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Playability:</span> C2 is the open C-string, providing a resonant foundation. A4 is reachable in thumb position or high positions on the A-string. Avoid rapid leaps from C2 to A4 to ensure the performer can maintain clean intonation.
-                  </>
-                ),
-              },
-              {
-                icon: <CheckCircle2 size={16} className="text-green-600" />,
-                title: "Style and Genre Consistency",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>Consistency:</span> The limited pitch set suggests a Minimalist or Neo-Classical style.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>Dynamics:</span> The average velocity of 80 is static. For a solo string instrument, incorporate crescendos and diminuendos to mimic natural bow pressure changes and enhance the expressive quality.
-                  </>
-                ),
-              },
-              {
-                icon: <Sparkles size={16} style={{ color: "#200f3f" }} />,
-                title: "Top 3 Fixes",
-                content: (
-                  <>
-                    <span className="font-bold" style={{ color: "#200f3f" }}>1. Dynamic Variation:</span> Vary velocity (60–100) to simulate realistic bowing and phrasing.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>2. Harmonic Interest:</span> Introduce a G# (leading tone) if the piece is in A Minor to strengthen cadences.
-                    <br /><span className="font-bold" style={{ color: "#200f3f" }}>3. Rhythmic Diversity:</span> Break repetitive patterns with dotted rhythms or rests to allow the "instrument" to breathe, improving the overall lyrical flow and realism.
-                  </>
-                ),
-                special: true,
-              },
-            ].map((card, i) => (
-              <motion.div
-                key={i}
-                variants={scaleIn}
-                custom={i}
-                whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.2 } }}
-                className={`rounded-xl border p-5 cursor-default ${
-                  card.special ? "bg-background/30 border-foreground/20" : "bg-background/40 border-border"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  {card.icon}
-                  <span className="text-sm font-semibold" style={{ color: "#200f3f" }}>{card.title}</span>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{card.content}</p>
+            <div className="h-px w-8 bg-foreground/30" />
+            <span className="text-xs font-mono tracking-widest text-muted-foreground uppercase">Live Demo</span>
+            <div className="h-px w-8 bg-foreground/30" />
+          </motion.div>
+
+          <motion.h2
+            variants={fadeUp}
+            custom={0}
+            className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
+          >
+            See How Orpheus Analyzes Your Music
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
+            Deep analysis of every dimension of your composition.
+          </motion.p>
+
+          <motion.div
+            variants={scaleIn}
+            custom={2}
+            className="w-full rounded-2xl border border-border p-8 shadow-lg"
+            style={{ background: "var(--gradient-card)" }}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}>
+                <Music size={20} className="text-foreground" />
               </motion.div>
-            ))}
+              <span className="font-semibold text-foreground">Composition: Cello.midi</span>
+              <div className="ml-auto">
+                <EqualizerBars />
+              </div>
+            </div>
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {[
+                {
+                  icon: <CheckCircle2 size={16} className="text-green-600" />,
+                  title: "Melody Analysis",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">Contour:</span> The melody spans C2 to A4, showing a healthy rise from the bass register into the tenor range.
+                      <br /><span className="font-bold text-foreground">Repetition:</span> With only 8 unique pitches across 84 notes, the motif is likely highly repetitive.
+                      <br /><span className="font-bold text-foreground">Suggestions:</span> Introduce more chromatic passing tones or leaps to break the C-major/A-minor diatonic predictability.
+                    </>
+                  ),
+                },
+                {
+                  icon: <AlertTriangle size={16} className="text-yellow-600" />,
+                  title: "Harmony and Chord Fit",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">Scale:</span> The pitch classes suggest a pure C Major or A Natural Minor tonality.
+                      <br /><span className="font-bold text-foreground">Voice-Leading:</span> As a solo Cello piece, the harmony is implied.
+                      <br /><span className="font-bold text-foreground">Clashes:</span> The lack of accidentals suggests a safe but potentially static harmonic progression.
+                    </>
+                  ),
+                },
+                {
+                  icon: <CheckCircle2 size={16} className="text-green-600" />,
+                  title: "Rhythm and Meter",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">Patterns:</span> The note count suggests an average of 7 notes per bar.
+                      <br /><span className="font-bold text-foreground">Flow:</span> Ensure rhythmic variety; avoid constant eighth notes.
+                      <br /><span className="font-bold text-foreground">Syncopation:</span> Use ties across barlines to create a more lyrical quality.
+                    </>
+                  ),
+                },
+                {
+                  icon: <CheckCircle2 size={16} className="text-green-600" />,
+                  title: "Range and Playability",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">Range:</span> C2 to A4 is perfectly idiomatic for Cello.
+                      <br /><span className="font-bold text-foreground">Playability:</span> C2 is the open C-string, providing a resonant foundation. A4 is reachable in thumb position.
+                    </>
+                  ),
+                },
+                {
+                  icon: <CheckCircle2 size={16} className="text-green-600" />,
+                  title: "Style and Genre Consistency",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">Consistency:</span> The limited pitch set suggests a Minimalist or Neo-Classical style.
+                      <br /><span className="font-bold text-foreground">Dynamics:</span> The average velocity of 80 is static. Incorporate crescendos and diminuendos.
+                    </>
+                  ),
+                },
+                {
+                  icon: <Sparkles size={16} className="text-foreground" />,
+                  title: "Top 3 Fixes",
+                  content: (
+                    <>
+                      <span className="font-bold text-foreground">1. Dynamic Variation:</span> Vary velocity (60–100) to simulate realistic bowing.
+                      <br /><span className="font-bold text-foreground">2. Harmonic Interest:</span> Introduce a G# (leading tone) for A Minor cadences.
+                      <br /><span className="font-bold text-foreground">3. Rhythmic Diversity:</span> Break repetitive patterns with dotted rhythms or rests.
+                    </>
+                  ),
+                  special: true,
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  variants={scaleIn}
+                  custom={i}
+                  whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.2 } }}
+                  className={`rounded-xl border p-5 cursor-default ${
+                    card.special ? "bg-background/30 border-foreground/20" : "bg-background/40 border-border"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    {card.icon}
+                    <span className="text-sm font-semibold text-foreground">{card.title}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{card.content}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </motion.div>
       </motion.section>
 
-      {/* How It Works - slides from alternating sides with waveform */}
+      {/* ═══════════════════════════════════════════════════════════
+          HOW IT WORKS — Numbered vertical timeline feel, clean bg
+      ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="how-it-works"
-        className="relative w-full flex flex-col items-center px-6 py-24"
+        className="relative w-full flex flex-col items-center px-6 py-28"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -385,8 +385,7 @@ const Index = () => {
         <motion.h2
           variants={fadeUp}
           custom={0}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-4"
-          style={{ color: "#200f3f" }}
+          className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
         >
           How It Works
         </motion.h2>
@@ -394,7 +393,6 @@ const Index = () => {
           Three simple steps to better compositions.
         </motion.p>
 
-        {/* Waveform divider */}
         <motion.div
           className="mb-14 w-48"
           initial={{ opacity: 0, scaleX: 0 }}
@@ -405,7 +403,7 @@ const Index = () => {
           <Waveform />
         </motion.div>
 
-        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl" variants={staggerContainer}>
+        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl" variants={staggerContainer}>
           {[
             { icon: Upload, step: "01", title: "Upload Music", desc: "Upload MIDI, sheet music, or audio files.", variant: slideFromLeft },
             { icon: Brain, step: "02", title: "AI Analysis", desc: "The AI evaluates harmony, melody, and structure.", variant: fadeUp },
@@ -415,12 +413,11 @@ const Index = () => {
               key={item.step}
               variants={item.variant}
               custom={parseInt(item.step) - 1}
-              whileHover={{ y: -10, scale: 1.04, transition: { duration: 0.3 } }}
-              className="group rounded-2xl border border-border p-8 hover:shadow-xl transition-shadow"
-              style={{ background: "var(--gradient-card)" }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group flex flex-col items-center text-center rounded-2xl border border-border p-8 hover:shadow-xl transition-shadow bg-card"
             >
               <motion.span
-                className="text-xs font-mono text-muted-foreground mb-4 block"
+                className="text-4xl font-display font-bold text-foreground/10 mb-4"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -429,82 +426,80 @@ const Index = () => {
                 {item.step}
               </motion.span>
               <motion.div
-                className="w-12 h-12 rounded-xl bg-background/40 flex items-center justify-center mb-5"
+                className="w-14 h-14 rounded-full bg-secondary/40 flex items-center justify-center mb-5"
                 whileHover={{ rotate: 10, scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <item.icon size={24} style={{ color: "#200f3f" }} />
+                <item.icon size={24} className="text-foreground" />
               </motion.div>
-              <h3 className="text-lg font-display font-bold mb-2" style={{ color: "#200f3f" }}>{item.title}</h3>
+              <h3 className="text-lg font-display font-bold mb-2 text-foreground">{item.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>
       </motion.section>
 
-      {/* Features Section - with staff lines and staggered scale animations */}
+      {/* ═══════════════════════════════════════════════════════════
+          FEATURES — Gradient bg strip, concentric rings, 2x2 grid
+      ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="features"
-        className="relative w-full flex flex-col items-center px-6 py-24"
+        className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
+        style={{ background: "linear-gradient(180deg, hsl(210 60% 95%) 0%, hsl(160 40% 93%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
-        {/* Staff lines background decoration */}
-        <motion.div
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 max-w-4xl mx-auto px-6"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
-        >
-          <StaffLines />
-        </motion.div>
+        <ConcentricRings />
 
-        <motion.h2
-          variants={fadeUp}
-          custom={0}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-4 relative z-10"
-          style={{ color: "#200f3f" }}
-        >
-          Features
-        </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14 relative z-10">
-          Comprehensive analysis for every aspect of your music.
-        </motion.p>
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl relative z-10" variants={staggerContainer}>
-          {[
-            { icon: BarChart3, title: "Harmony Analysis", desc: "Detect weak chord progressions and suggest improvements." },
-            { icon: Mic2, title: "Melody Insights", desc: "Identify repetitive or weak phrases in your melodies." },
-            { icon: Layers, title: "Structure Feedback", desc: "Improve pacing and musical development across sections." },
-            { icon: Headphones, title: "Orchestration Suggestions", desc: "Balance instrumentation and texture for richer sound." },
-          ].map((f, i) => (
-            <motion.div
-              key={i}
-              variants={scaleIn}
-              custom={i}
-              whileHover={{ y: -10, scale: 1.04, transition: { duration: 0.3 } }}
-              className="group rounded-2xl border border-border p-8 hover:shadow-xl transition-shadow"
-              style={{ background: "var(--gradient-card)" }}
-            >
+        <motion.div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
+          <motion.h2
+            variants={fadeUp}
+            custom={0}
+            className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
+          >
+            Features
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
+            Comprehensive analysis for every aspect of your music.
+          </motion.p>
+
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full" variants={staggerContainer}>
+            {[
+              { icon: BarChart3, title: "Harmony Analysis", desc: "Detect weak chord progressions and suggest improvements." },
+              { icon: Mic2, title: "Melody Insights", desc: "Identify repetitive or weak phrases in your melodies." },
+              { icon: Layers, title: "Structure Feedback", desc: "Improve pacing and musical development across sections." },
+              { icon: Headphones, title: "Orchestration Suggestions", desc: "Balance instrumentation and texture for richer sound." },
+            ].map((f, i) => (
               <motion.div
-                className="w-12 h-12 rounded-xl bg-background/40 flex items-center justify-center mb-5"
-                whileHover={{ rotate: -15, scale: 1.15 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                key={i}
+                variants={scaleIn}
+                custom={i}
+                whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3 } }}
+                className="group rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
               >
-                <f.icon size={24} style={{ color: "#200f3f" }} />
+                <motion.div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                  style={{ background: "var(--gradient-card)" }}
+                  whileHover={{ rotate: -15, scale: 1.15 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <f.icon size={24} className="text-foreground" />
+                </motion.div>
+                <h3 className="text-lg font-display font-bold mb-2 text-foreground">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </motion.div>
-              <h3 className="text-lg font-display font-bold mb-2" style={{ color: "#200f3f" }}>{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-            </motion.div>
-          ))}
+            ))}
+          </motion.div>
         </motion.div>
       </motion.section>
 
-      {/* Built for Composers - with bouncy entrance */}
+      {/* ═══════════════════════════════════════════════════════════
+          BUILT FOR COMPOSERS — Gradient cards in a row, clean bg
+      ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        className="w-full flex flex-col items-center px-6 py-24"
+        className="relative w-full flex flex-col items-center px-6 py-28"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -513,8 +508,7 @@ const Index = () => {
         <motion.h2
           variants={fadeUp}
           custom={0}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-4"
-          style={{ color: "#200f3f" }}
+          className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
         >
           Built for Composers
         </motion.h2>
@@ -532,16 +526,16 @@ const Index = () => {
               key={i}
               variants={scaleIn}
               custom={i}
-              whileHover={{ y: -12, scale: 1.08, rotate: i % 2 === 0 ? 2 : -2, transition: { duration: 0.3, type: "spring", stiffness: 300 } }}
+              whileHover={{ y: -10, scale: 1.06, transition: { duration: 0.3, type: "spring", stiffness: 300 } }}
               className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:shadow-xl transition-shadow"
               style={{ background: "var(--gradient-card)" }}
             >
               <motion.div
-                className="w-14 h-14 rounded-xl bg-background/40 flex items-center justify-center"
+                className="w-14 h-14 rounded-full bg-background/50 flex items-center justify-center"
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 3, delay: i * 0.5, repeat: Infinity, ease: "easeInOut" as const }}
               >
-                <item.icon size={28} style={{ color: "#200f3f" }} />
+                <item.icon size={28} className="text-foreground" />
               </motion.div>
               <span className="text-sm font-medium text-foreground text-center">{item.label}</span>
             </motion.div>
@@ -549,43 +543,47 @@ const Index = () => {
         </motion.div>
       </motion.section>
 
-      {/* Final CTA - dramatic scale + glow */}
+      {/* ═══════════════════════════════════════════════════════════
+          CTA — Accent-tinted bg, big card with floating notes
+      ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        className="w-full flex flex-col items-center px-6 py-24"
+        className="relative w-full flex flex-col items-center px-6 py-28"
+        style={{ background: "linear-gradient(180deg, hsl(50 33% 93%) 0%, hsl(50 30% 90%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={staggerContainer}
       >
+        <DotPattern />
+
         <motion.div
           variants={scaleIn}
           whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-          className="relative w-full max-w-3xl rounded-3xl border border-border p-12 md:p-16 text-center overflow-hidden"
+          className="relative z-10 w-full max-w-3xl rounded-3xl border border-border p-12 md:p-16 text-center overflow-hidden"
           style={{ background: "var(--gradient-card)" }}
         >
-          {/* Floating notes inside CTA */}
           <motion.span
             className="absolute top-6 left-8 text-4xl pointer-events-none select-none"
             animate={{ y: [0, -10, 0], rotate: [-5, 10, -5], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" as const }}
           >
-            <span className="bg-gradient-to-br from-[#6c5ce7]/40 to-[#00b894]/30 bg-clip-text text-transparent font-display">♫</span>
+            <span className="bg-gradient-to-br from-foreground/40 to-accent/30 bg-clip-text text-transparent font-display">♫</span>
           </motion.span>
           <motion.span
             className="absolute bottom-8 right-10 text-5xl pointer-events-none select-none"
             animate={{ y: [0, -15, 0], rotate: [5, -10, 5], opacity: [0.2, 0.5, 0.2] }}
             transition={{ duration: 5, delay: 1, repeat: Infinity, ease: "easeInOut" as const }}
           >
-            <span className="bg-gradient-to-br from-[#6c5ce7]/40 to-[#00b894]/30 bg-clip-text text-transparent font-display">𝄞</span>
+            <span className="bg-gradient-to-br from-foreground/40 to-accent/30 bg-clip-text text-transparent font-display">𝄞</span>
           </motion.span>
 
-          <h2 className="relative text-3xl md:text-5xl font-display font-bold mb-4" style={{ color: "#200f3f" }}>
+          <h2 className="relative text-3xl md:text-5xl font-display font-bold mb-4 text-foreground">
             Start Improving Your Music Today
           </h2>
           <p className="relative text-muted-foreground max-w-lg mx-auto mb-8">
             Upload your composition and get instant AI feedback.
           </p>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+          <motion.div className="flex justify-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Button
               onClick={() => navigate("/upload")}
               className="relative rounded-full px-10 py-3 text-base font-semibold border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-primary-foreground transition-all"
@@ -599,7 +597,6 @@ const Index = () => {
         </motion.div>
       </motion.section>
 
-      {/* Footer */}
       <footer className="w-full py-8 px-6" />
     </main>
   );
