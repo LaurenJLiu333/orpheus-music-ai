@@ -86,7 +86,8 @@ const EqualizerBars = () => (
     {[0.3, 0.7, 0.5, 1, 0.4, 0.8, 0.6].map((height, i) => (
       <motion.div
         key={i}
-        className="w-1.5 rounded-full bg-gradient-to-t from-[hsl(270,50%,15%)] to-[hsl(160,50%,40%)]"
+        className="w-1.5 rounded-full"
+        style={{ background: "linear-gradient(to top, hsl(210 65% 60%), hsl(160 55% 55%))" }}
         initial={{ height: 4 }}
         animate={{ height: [4, height * 32, 8, height * 24, 4] }}
         transition={{ duration: 1.8, delay: i * 0.15, repeat: Infinity, ease: "easeInOut" as const }}
@@ -101,7 +102,8 @@ const Waveform = () => (
     {Array.from({ length: 20 }).map((_, i) => (
       <motion.div
         key={i}
-        className="w-1 rounded-full bg-gradient-to-t from-foreground/30 to-accent/60"
+        className="w-1 rounded-full"
+        style={{ background: `linear-gradient(to top, hsl(210 60% 70%), hsl(${150 + i * 2} 50% 65%))` }}
         initial={{ height: 4 }}
         animate={{ height: [4, Math.random() * 20 + 6, 4] }}
         transition={{ duration: 1.2 + Math.random() * 0.8, delay: i * 0.05, repeat: Infinity, ease: "easeInOut" as const }}
@@ -116,8 +118,8 @@ const ConcentricRings = () => (
     {[280, 400, 520].map((size, i) => (
       <motion.div
         key={i}
-        className="absolute rounded-full border border-foreground/5"
-        style={{ width: size, height: size }}
+        className="absolute rounded-full"
+        style={{ width: size, height: size, border: `1px solid hsl(210 60% 75% / ${0.15 - i * 0.03})` }}
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
@@ -130,8 +132,8 @@ const ConcentricRings = () => (
 // Dot pattern
 const DotPattern = ({ className = "" }: { className?: string }) => (
   <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
-    <div className="absolute inset-0 opacity-[0.04]" style={{
-      backgroundImage: "radial-gradient(hsl(270 50% 15%) 1px, transparent 1px)",
+    <div className="absolute inset-0 opacity-[0.03]" style={{
+      backgroundImage: "radial-gradient(hsl(210 60% 50%) 1px, transparent 1px)",
       backgroundSize: "24px 24px",
     }} />
   </div>
@@ -150,7 +152,7 @@ const Index = () => {
       {/* ═══════════════════════════════════════════════════════════
           HERO — Clean with floating notes + parallax
       ═══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]">
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "var(--gradient-hero)" }}>
         {[
           { symbol: "𝄞", ...floatingNote("6%", "10%", 0, -20, 90) },
           { symbol: "♪", ...floatingNote("88%", "15%", 0.4, 15, 72) },
@@ -164,7 +166,7 @@ const Index = () => {
           { symbol: "♬", ...floatingNote("25%", "85%", 2, -25, 54) },
         ].map(({ symbol, ...props }, i) => (
           <motion.span key={i} {...props}>
-            <span className="font-display font-bold bg-gradient-to-br from-foreground/40 to-accent/50 bg-clip-text text-transparent">
+            <span className="font-display font-bold" style={{ background: "linear-gradient(135deg, hsl(210 65% 55%), hsl(160 50% 50%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               {symbol}
             </span>
           </motion.span>
@@ -182,7 +184,7 @@ const Index = () => {
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent inline-block"
+              className="inline-block" style={{ background: "linear-gradient(135deg, hsl(210 65% 55%), hsl(160 55% 45%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
             >
               With AI
             </motion.span>
@@ -231,7 +233,7 @@ const Index = () => {
       <motion.section
         id="demo"
         className="relative w-full flex flex-col items-center px-6 py-28"
-        style={{ background: "linear-gradient(180deg, hsl(50 33% 93%) 0%, hsl(50 30% 89%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 91%) 50%, hsl(210 45% 90%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -376,7 +378,7 @@ const Index = () => {
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="how-it-works"
-        className="relative w-full flex flex-col items-center px-6 py-28"
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 45% 93%) 0%, hsl(48 40% 95%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -445,7 +447,7 @@ const Index = () => {
       <motion.section
         id="features"
         className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
-        style={{ background: "linear-gradient(180deg, hsl(210 60% 95%) 0%, hsl(160 40% 93%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(160 40% 92%) 0%, hsl(210 55% 90%) 50%, hsl(160 35% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -499,7 +501,7 @@ const Index = () => {
           BUILT FOR COMPOSERS — Gradient cards in a row, clean bg
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        className="relative w-full flex flex-col items-center px-6 py-28"
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 30% 92%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -548,7 +550,7 @@ const Index = () => {
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         className="relative w-full flex flex-col items-center px-6 py-28"
-        style={{ background: "linear-gradient(180deg, hsl(50 33% 93%) 0%, hsl(50 30% 90%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(210 50% 92%) 0%, hsl(160 40% 90%) 50%, hsl(48 40% 95%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -567,14 +569,14 @@ const Index = () => {
             animate={{ y: [0, -10, 0], rotate: [-5, 10, -5], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" as const }}
           >
-            <span className="bg-gradient-to-br from-foreground/40 to-accent/30 bg-clip-text text-transparent font-display">♫</span>
+            <span style={{ background: "linear-gradient(135deg, hsl(210 60% 60%), hsl(160 50% 55%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }} className="font-display">♫</span>
           </motion.span>
           <motion.span
             className="absolute bottom-8 right-10 text-5xl pointer-events-none select-none"
             animate={{ y: [0, -15, 0], rotate: [5, -10, 5], opacity: [0.2, 0.5, 0.2] }}
             transition={{ duration: 5, delay: 1, repeat: Infinity, ease: "easeInOut" as const }}
           >
-            <span className="bg-gradient-to-br from-foreground/40 to-accent/30 bg-clip-text text-transparent font-display">𝄞</span>
+            <span style={{ background: "linear-gradient(135deg, hsl(160 50% 55%), hsl(210 60% 60%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }} className="font-display">𝄞</span>
           </motion.span>
 
           <h2 className="relative text-3xl md:text-5xl font-display font-bold mb-4 text-foreground">
