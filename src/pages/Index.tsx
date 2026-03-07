@@ -416,7 +416,7 @@ const Index = () => {
               variants={item.variant}
               custom={parseInt(item.step) - 1}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group flex flex-col items-center text-center rounded-2xl border border-border p-8 hover:shadow-xl transition-shadow bg-card"
+              className="group flex flex-col items-center text-center rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
             >
               <motion.span
                 className="text-4xl font-display font-bold text-foreground/10 mb-4"
