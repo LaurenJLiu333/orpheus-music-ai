@@ -152,7 +152,7 @@ const Index = () => {
       {/* ═══════════════════════════════════════════════════════════
           HERO — Clean with floating notes + parallax
       ═══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "var(--gradient-hero)" }}>
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 92%) 60%, hsl(160 38% 91%) 100%)" }}>
         {[
           { symbol: "𝄞", ...floatingNote("6%", "10%", 0, -20, 90) },
           { symbol: "♪", ...floatingNote("88%", "15%", 0.4, 15, 72) },
@@ -233,7 +233,7 @@ const Index = () => {
       <motion.section
         id="demo"
         className="relative w-full flex flex-col items-center px-6 py-28"
-        style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 91%) 50%, hsl(210 45% 90%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(160 38% 91%) 0%, hsl(180 38% 91%) 50%, hsl(210 42% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -378,7 +378,7 @@ const Index = () => {
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="how-it-works"
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 45% 93%) 0%, hsl(48 40% 95%) 100%)" }}
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(190 40% 91%) 50%, hsl(160 40% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -396,7 +396,7 @@ const Index = () => {
         </motion.p>
 
         <motion.div
-          className="mb-14 w-48"
+          className="mb-14 flex justify-center w-full"
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
@@ -447,7 +447,7 @@ const Index = () => {
       <motion.section
         id="features"
         className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
-        style={{ background: "linear-gradient(180deg, hsl(160 40% 92%) 0%, hsl(210 55% 90%) 50%, hsl(160 35% 91%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(160 40% 91%) 0%, hsl(190 50% 90%) 50%, hsl(210 45% 90%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -501,7 +501,7 @@ const Index = () => {
           BUILT FOR COMPOSERS — Gradient cards in a row, clean bg
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 30% 92%) 100%)" }}
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 45% 90%) 0%, hsl(180 38% 91%) 50%, hsl(160 35% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -550,7 +550,7 @@ const Index = () => {
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         className="relative w-full flex flex-col items-center px-6 py-28"
-        style={{ background: "linear-gradient(180deg, hsl(210 50% 92%) 0%, hsl(160 40% 90%) 50%, hsl(48 40% 95%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(160 35% 91%) 0%, hsl(180 38% 91%) 50%, hsl(48 40% 95%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
