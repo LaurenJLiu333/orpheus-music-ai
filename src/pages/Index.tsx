@@ -419,7 +419,7 @@ const Index = () => {
               className="group flex flex-col items-center text-center rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
             >
               <motion.span
-                className="text-4xl font-display font-bold text-foreground/30 mb-4"
+                className="text-4xl font-display font-bold text-foreground mb-4"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
