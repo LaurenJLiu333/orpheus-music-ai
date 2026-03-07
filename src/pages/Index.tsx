@@ -273,7 +273,7 @@ const Index = () => {
               <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}>
                 <Music size={20} className="text-foreground" />
               </motion.div>
-              <span className="font-semibold text-foreground">Composition: Cello.midi</span>
+              <span className="font-semibold text-foreground">Composition: Cello.mid</span>
               <div className="ml-auto">
                 <EqualizerBars />
               </div>
