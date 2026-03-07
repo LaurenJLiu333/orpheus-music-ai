@@ -248,7 +248,7 @@ const Index = () => {
             className="flex items-center gap-3 mb-4"
           >
             <div className="h-px w-8 bg-foreground/30" />
-            <span className="text-xs font-mono tracking-widest text-muted-foreground uppercase">Live Demo</span>
+            <span className="text-xs font-mono tracking-widest text-muted-foreground uppercase">Example</span>
             <div className="h-px w-8 bg-foreground/30" />
           </motion.div>
 
