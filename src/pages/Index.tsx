@@ -407,7 +407,7 @@ const Index = () => {
 
         <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl" variants={staggerContainer}>
           {[
-            { icon: Upload, step: "01", title: "Upload Music", desc: "Upload MIDI, sheet music, or audio files.", variant: slideFromLeft },
+            { icon: Upload, step: "01", title: "Upload Music", desc: "Upload MIDI files.", variant: slideFromLeft },
             { icon: Brain, step: "02", title: "AI Analysis", desc: "The AI evaluates harmony, melody, and structure.", variant: fadeUp },
             { icon: MessageSquare, step: "03", title: "Receive Feedback", desc: "Get clear suggestions to improve your composition.", variant: slideFromRight },
           ].map((item) => (
