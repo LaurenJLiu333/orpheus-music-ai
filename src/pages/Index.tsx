@@ -239,12 +239,149 @@ const Index = () => {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          DEMO — Dot pattern bg, soft card container
+          HOW IT WORKS
+      ═══════════════════════════════════════════════════════════ */}
+      <motion.section
+        id="how-it-works"
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(160 38% 91%) 0%, hsl(190 40% 91%) 50%, hsl(210 42% 91%) 100%)" }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
+        <motion.h2
+          variants={fadeUp}
+          custom={0}
+          className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
+        >
+          How It Works
+        </motion.h2>
+        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-6">
+          Three simple steps to better compositions.
+        </motion.p>
+
+        <motion.div
+          className="mb-14 flex justify-center w-full"
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <Waveform />
+        </motion.div>
+
+        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl" variants={staggerContainer}>
+          {[
+            { icon: Upload, step: "01", title: "Upload Music", desc: "Upload MIDI files.", variant: slideFromLeft },
+            { icon: Brain, step: "02", title: "AI Analysis", desc: "The AI evaluates harmony, melody, and structure.", variant: fadeUp },
+            { icon: MessageSquare, step: "03", title: "Receive Feedback", desc: "Get clear suggestions to improve your composition.", variant: slideFromRight },
+          ].map((item) => (
+            <motion.div
+              key={item.step}
+              variants={item.variant}
+              custom={parseInt(item.step) - 1}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
+              className="group flex flex-col items-center text-center rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
+            >
+              <motion.span
+                className="text-4xl font-display font-bold text-foreground mb-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                {item.step}
+              </motion.span>
+              <motion.div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-5"
+                style={{ background: "var(--gradient-card)" }}
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <item.icon size={24} className="text-foreground" />
+              </motion.div>
+              <h3 className="text-lg font-display font-bold mb-2 text-foreground">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          FEATURES
+      ═══════════════════════════════════════════════════════════ */}
+      <motion.section
+        id="features"
+        className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
+        style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(190 50% 90%) 50%, hsl(160 45% 90%) 100%)" }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
+        <ConcentricRings />
+
+        <motion.div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
+          <motion.h2
+            variants={fadeUp}
+            custom={0}
+            className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
+          >
+            Features
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-6">
+            Comprehensive analysis for every aspect of your music.
+          </motion.p>
+
+          <motion.div
+            className="mb-14 flex justify-center w-full"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <Waveform />
+          </motion.div>
+
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full" variants={staggerContainer}>
+            {[
+              { icon: BarChart3, title: "Harmony Analysis", desc: "Detect weak chord progressions and suggest improvements." },
+              { icon: Mic2, title: "Melody Insights", desc: "Identify repetitive or weak phrases in your melodies." },
+              { icon: Layers, title: "Structure Feedback", desc: "Improve pacing and musical development across sections." },
+              { icon: Headphones, title: "Orchestration Suggestions", desc: "Balance instrumentation and texture for richer sound." },
+            ].map((f, i) => (
+              <motion.div
+                key={i}
+                variants={scaleIn}
+                custom={i}
+                whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3 } }}
+                className="group rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm text-center"
+              >
+                <div className="flex justify-center">
+                  <motion.div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                    style={{ background: "var(--gradient-card)" }}
+                    whileHover={{ rotate: -15, scale: 1.15 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <f.icon size={24} className="text-foreground" />
+                  </motion.div>
+                </div>
+                <h3 className="text-lg font-display font-bold mb-2 text-foreground">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </motion.section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          DEMO / EXAMPLE
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="demo"
         className="relative w-full flex flex-col items-center px-6 py-28"
-        style={{ background: "linear-gradient(180deg, hsl(160 38% 91%) 0%, hsl(180 38% 91%) 50%, hsl(210 42% 91%) 100%)" }}
+        style={{ background: "linear-gradient(180deg, hsl(160 45% 90%) 0%, hsl(180 38% 91%) 50%, hsl(210 42% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -270,9 +407,19 @@ const Index = () => {
           >
             See How Orpheus Analyzes Your Music
           </motion.h2>
-          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-6">
             Deep analysis of every dimension of your composition.
           </motion.p>
+
+          <motion.div
+            className="mb-14 flex justify-center w-full"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <Waveform />
+          </motion.div>
 
           <motion.div
             variants={scaleIn}
@@ -284,7 +431,7 @@ const Index = () => {
               <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}>
                 <Music size={20} className="text-foreground" />
               </motion.div>
-              <span className="font-semibold text-foreground">Composition: Cello.mid</span>
+              <span className="font-semibold text-foreground">File name: Cello.mid</span>
               <div className="ml-auto">
                 <EqualizerBars />
               </div>
@@ -385,134 +532,10 @@ const Index = () => {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════
-          HOW IT WORKS — Numbered vertical timeline feel, clean bg
+          BUILT FOR COMPOSERS
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        id="how-it-works"
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(190 40% 91%) 50%, hsl(160 40% 91%) 100%)" }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <motion.h2
-          variants={fadeUp}
-          custom={0}
-          className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
-        >
-          How It Works
-        </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-6">
-          Three simple steps to better compositions.
-        </motion.p>
-
-        <motion.div
-          className="mb-14 flex justify-center w-full"
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <Waveform />
-        </motion.div>
-
-        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl" variants={staggerContainer}>
-          {[
-            { icon: Upload, step: "01", title: "Upload Music", desc: "Upload MIDI files.", variant: slideFromLeft },
-            { icon: Brain, step: "02", title: "AI Analysis", desc: "The AI evaluates harmony, melody, and structure.", variant: fadeUp },
-            { icon: MessageSquare, step: "03", title: "Receive Feedback", desc: "Get clear suggestions to improve your composition.", variant: slideFromRight },
-          ].map((item) => (
-            <motion.div
-              key={item.step}
-              variants={item.variant}
-              custom={parseInt(item.step) - 1}
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="group flex flex-col items-center text-center rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
-            >
-              <motion.span
-                className="text-4xl font-display font-bold text-foreground mb-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                {item.step}
-              </motion.span>
-              <motion.div
-                className="w-14 h-14 rounded-full bg-secondary/40 flex items-center justify-center mb-5"
-                whileHover={{ rotate: 10, scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <item.icon size={24} className="text-foreground" />
-              </motion.div>
-              <h3 className="text-lg font-display font-bold mb-2 text-foreground">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          FEATURES — Gradient bg strip, concentric rings, 2x2 grid
-      ═══════════════════════════════════════════════════════════ */}
-      <motion.section
-        id="features"
-        className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
-        style={{ background: "linear-gradient(180deg, hsl(160 40% 91%) 0%, hsl(190 50% 90%) 50%, hsl(210 45% 90%) 100%)" }}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={staggerContainer}
-      >
-        <ConcentricRings />
-
-        <motion.div className="relative z-10 flex flex-col items-center w-full max-w-4xl">
-          <motion.h2
-            variants={fadeUp}
-            custom={0}
-            className="text-3xl md:text-5xl font-display font-bold text-center mb-4 text-foreground"
-          >
-            Features
-          </motion.h2>
-          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
-            Comprehensive analysis for every aspect of your music.
-          </motion.p>
-
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full" variants={staggerContainer}>
-            {[
-              { icon: BarChart3, title: "Harmony Analysis", desc: "Detect weak chord progressions and suggest improvements." },
-              { icon: Mic2, title: "Melody Insights", desc: "Identify repetitive or weak phrases in your melodies." },
-              { icon: Layers, title: "Structure Feedback", desc: "Improve pacing and musical development across sections." },
-              { icon: Headphones, title: "Orchestration Suggestions", desc: "Balance instrumentation and texture for richer sound." },
-            ].map((f, i) => (
-              <motion.div
-                key={i}
-                variants={scaleIn}
-                custom={i}
-                whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3 } }}
-                className="group rounded-2xl border border-border/60 p-8 hover:shadow-xl transition-shadow bg-background/70 backdrop-blur-sm"
-              >
-                <motion.div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: "var(--gradient-card)" }}
-                  whileHover={{ rotate: -15, scale: 1.15 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <f.icon size={24} className="text-foreground" />
-                </motion.div>
-                <h3 className="text-lg font-display font-bold mb-2 text-foreground">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* ═══════════════════════════════════════════════════════════
-          BUILT FOR COMPOSERS — Gradient cards in a row, clean bg
-      ═══════════════════════════════════════════════════════════ */}
-      <motion.section
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 45% 90%) 0%, hsl(180 38% 91%) 50%, hsl(160 35% 91%) 100%)" }}
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(180 38% 91%) 50%, hsl(160 35% 91%) 100%)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -525,9 +548,20 @@ const Index = () => {
         >
           Built for Composers
         </motion.h2>
-        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-14">
+        <motion.p variants={fadeUp} custom={1} className="text-muted-foreground text-center max-w-xl mb-6">
           Orpheus helps composers, students, producers, and musicians improve their compositions with AI-powered analysis.
         </motion.p>
+
+        <motion.div
+          className="mb-14 flex justify-center w-full"
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <Waveform />
+        </motion.div>
+
         <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-3xl" variants={staggerContainer}>
           {[
             { icon: GraduationCap, label: "Composition Students" },
@@ -540,7 +574,7 @@ const Index = () => {
               variants={scaleIn}
               custom={i}
               whileHover={{ y: -10, scale: 1.06, transition: { duration: 0.3, type: "spring", stiffness: 300 } }}
-              className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:shadow-xl transition-shadow"
+              className="flex flex-col items-center gap-3 p-6 rounded-2xl border border-border hover:shadow-xl transition-shadow text-center"
               style={{ background: "var(--gradient-card)" }}
             >
               <motion.div
@@ -557,7 +591,7 @@ const Index = () => {
       </motion.section>
 
       {/* ═══════════════════════════════════════════════════════════
-          CTA — Accent-tinted bg, big card with floating notes
+          CTA
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         className="relative w-full flex flex-col items-center px-6 py-28"
