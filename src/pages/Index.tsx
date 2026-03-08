@@ -103,7 +103,7 @@ const Waveform = () => (
       <motion.div
         key={i}
         className="w-1 rounded-full"
-        style={{ background: `linear-gradient(to top, hsl(210 60% 70%), hsl(${150 + i * 2} 50% 65%))` }}
+        style={{ background: `linear-gradient(to top, hsl(210 75% 70%), hsl(${150 + i * 2} 65% 60%))` }}
         initial={{ height: 4 }}
         animate={{ height: [4, Math.random() * 20 + 6, 4] }}
         transition={{ duration: 1.2 + Math.random() * 0.8, delay: i * 0.05, repeat: Infinity, ease: "easeInOut" as const }}
