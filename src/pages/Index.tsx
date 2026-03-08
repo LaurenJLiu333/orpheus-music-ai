@@ -155,7 +155,7 @@ const Index = () => {
       <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 92%) 60%, hsl(160 38% 91%) 100%)" }}>
         {[
           { symbol: "𝄞", ...floatingNote("6%", "10%", 0, -20, 90) },
-          { symbol: "♪", ...floatingNote("88%", "15%", 0.4, 15, 72) },
+          
           { symbol: "♫", ...floatingNote("12%", "68%", 1, -10, 64) },
           { symbol: "♬", ...floatingNote("80%", "72%", 0.7, 25, 68) },
           { symbol: "♩", ...floatingNote("45%", "5%", 1.3, -30, 56) },
