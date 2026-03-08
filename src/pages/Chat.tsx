@@ -66,7 +66,7 @@ const Chat = () => {
   return (
     <main className="flex flex-col max-w-3xl mx-auto h-[calc(100vh-64px)]">
       <div className="bg-chat-dark text-chat-dark-foreground p-4 flex items-center justify-between rounded-t-xl mt-6 mx-6">
-        <h2 className="text-xl font-bold">AI Assistant</h2>
+        <h2 className="text-xl font-bold">Orpheus AI</h2>
         <Button variant="ghost" size="sm" onClick={() => setMessages([])} className="text-chat-dark-foreground hover:bg-white/10">
           <Plus size={16} className="mr-1" /> New Chat
         </Button>
