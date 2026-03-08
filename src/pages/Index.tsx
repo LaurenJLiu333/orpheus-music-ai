@@ -159,7 +159,7 @@ const Index = () => {
           { symbol: "♫", ...floatingNote("12%", "68%", 1, -10, 64) },
           { symbol: "♬", ...floatingNote("80%", "72%", 0.7, 25, 68) },
           { symbol: "♩", ...floatingNote("45%", "5%", 1.3, -30, 56) },
-          { symbol: "♪", ...floatingNote("94%", "42%", 0.2, 20, 60) },
+          
           { symbol: "𝄢", ...floatingNote("3%", "38%", 1.8, 12, 80) },
           { symbol: "♫", ...floatingNote("58%", "82%", 1.5, -18, 58) },
           { symbol: "𝄞", ...floatingNote("70%", "5%", 0.9, 30, 50) },
