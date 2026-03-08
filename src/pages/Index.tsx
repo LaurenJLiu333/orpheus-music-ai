@@ -227,7 +227,7 @@ const Index = () => {
                 <motion.div
                   key={i}
                   className="w-2 rounded-full"
-                  style={{ background: "linear-gradient(to top, hsl(210 65% 60%), hsl(160 55% 55%))" }}
+                  style={{ background: "linear-gradient(to top, hsl(210 80% 65%), hsl(160 70% 55%))" }}
                   initial={{ height: 4 }}
                   animate={{ height: [4, height * 48, 8, height * 36, 4] }}
                   transition={{ duration: 1.8, delay: i * 0.12, repeat: Infinity, ease: "easeInOut" as const }}
