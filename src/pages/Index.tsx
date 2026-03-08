@@ -163,6 +163,7 @@ const Index = () => {
           { symbol: "𝄢", ...floatingNote("3%", "38%", 1.8, 12, 80) },
           { symbol: "𝄞", ...floatingNote("70%", "5%", 0.9, 30, 50) },
           { symbol: "♬", ...floatingNote("25%", "85%", 2, -25, 54) },
+          { symbol: "♩", ...floatingNote("65%", "73%", 1.1, 15, 58) },
         ].map(({ symbol, ...props }, i) => (
           <motion.span key={i} {...props}>
             <span className="font-display font-bold" style={{ background: "linear-gradient(135deg, hsl(210 65% 55%), hsl(160 50% 50%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
