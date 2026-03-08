@@ -535,7 +535,7 @@ const Index = () => {
           BUILT FOR COMPOSERS
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(180 38% 91%) 50%, hsl(160 35% 91%) 100%)" }}
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "var(--section-d)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
