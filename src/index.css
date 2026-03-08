@@ -97,7 +97,7 @@
     --gradient-card: linear-gradient(135deg, hsl(250 30% 14%), hsl(230 35% 16%));
     --gradient-button: linear-gradient(135deg, hsl(250 30% 18%), hsl(230 35% 22%));
     --gradient-hero: linear-gradient(160deg, hsl(250 40% 8%), hsl(240 30% 10%), hsl(230 25% 12%));
-    --gradient-nav: linear-gradient(135deg, hsl(250 35% 10%), hsl(230 30% 13%));
+    --gradient-nav: linear-gradient(135deg, hsl(150 50% 30%), hsl(210 60% 35%));
     --gradient-blue: linear-gradient(135deg, hsl(230 30% 14%), hsl(230 35% 18%));
     --gradient-green: linear-gradient(135deg, hsl(250 25% 12%), hsl(240 30% 15%));
     --gradient-ivory: linear-gradient(180deg, hsl(250 40% 8%), hsl(250 35% 10%));
