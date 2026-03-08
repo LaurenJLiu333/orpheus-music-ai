@@ -73,7 +73,7 @@ const ChatWidget = () => {
   return (
     <div className="fixed bottom-0 right-0 z-50 w-full sm:w-96 h-[500px] sm:h-[550px] sm:bottom-6 sm:right-6 flex flex-col rounded-t-xl sm:rounded-xl overflow-hidden shadow-2xl animate-slide-in-right border border-border">
       <div className="bg-chat-dark text-chat-dark-foreground p-4 flex items-center justify-between">
-        <h3 className="text-lg font-bold">AI Assistant</h3>
+        <h3 className="text-lg font-bold">Orpheus AI</h3>
         <div className="flex gap-2">
           <Button variant="ghost" size="sm" onClick={newChat} className="text-chat-dark-foreground hover:bg-white/10 text-xs">New Chat</Button>
           <button onClick={() => setOpen(false)} className="text-chat-dark-foreground hover:text-white/70"><X size={20} /></button>

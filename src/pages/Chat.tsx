@@ -57,7 +57,7 @@ const Chat = () => {
   if (!authLoading && !user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] px-6">
-        <p className="text-lg text-muted-foreground mb-4">Please log in to use the AI assistant.</p>
+        <p className="text-lg text-muted-foreground mb-4">Please log in to use Orpheus AI.</p>
         <Button onClick={() => navigate("/login")} variant="outline" className="rounded-full px-8 border-foreground">Login</Button>
       </main>
     );
@@ -66,7 +66,7 @@ const Chat = () => {
   return (
     <main className="flex flex-col max-w-3xl mx-auto h-[calc(100vh-64px)]">
       <div className="bg-chat-dark text-chat-dark-foreground p-4 flex items-center justify-between rounded-t-xl mt-6 mx-6">
-        <h2 className="text-xl font-bold">AI Assistant</h2>
+        <h2 className="text-xl font-bold">Orpheus AI</h2>
         <Button variant="ghost" size="sm" onClick={() => setMessages([])} className="text-chat-dark-foreground hover:bg-white/10">
           <Plus size={16} className="mr-1" /> New Chat
         </Button>
