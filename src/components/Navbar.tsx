@@ -2,13 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { useTheme } from "@/hooks/useTheme";
-import { Moon, Sun } from "lucide-react";
 import lyreLogo from "@/assets/lyre-logo.png";
 
 const Navbar = () => {
   const { user } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -26,13 +23,6 @@ const Navbar = () => {
         <span className="text-2xl font-bold text-foreground font-display">Orpheus</span>
       </Link>
       <div className="flex items-center gap-3">
-        <button
-          onClick={toggleTheme}
-          className="w-9 h-9 rounded-full flex items-center justify-center text-foreground hover:bg-foreground/10 transition-colors"
-          aria-label="Toggle theme"
-        >
-          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
         <Link to="/upload">
           <Button variant="outline" className="rounded-full px-6 border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground font-bold">
             Upload
