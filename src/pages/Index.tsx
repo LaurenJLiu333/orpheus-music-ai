@@ -152,7 +152,7 @@ const Index = () => {
       {/* ═══════════════════════════════════════════════════════════
           HERO — Clean with floating notes + parallax
       ═══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 92%) 60%, hsl(160 38% 91%) 100%)" }}>
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden min-h-[85vh]" style={{ background: "var(--section-hero)" }}>
         {[
           { symbol: "𝄞", ...floatingNote("6%", "10%", 0, -20, 90) },
           { symbol: "♩", ...floatingNote("93%", "12%", 0.4, 15, 60) },
