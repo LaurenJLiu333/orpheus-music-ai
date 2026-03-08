@@ -87,7 +87,7 @@ const EqualizerBars = () => (
       <motion.div
         key={i}
         className="w-1.5 rounded-full"
-        style={{ background: "linear-gradient(to top, hsl(210 65% 60%), hsl(160 55% 55%))" }}
+        style={{ background: "linear-gradient(to top, hsl(210 80% 65%), hsl(160 70% 55%))" }}
         initial={{ height: 4 }}
         animate={{ height: [4, height * 32, 8, height * 24, 4] }}
         transition={{ duration: 1.8, delay: i * 0.15, repeat: Infinity, ease: "easeInOut" as const }}
@@ -103,7 +103,7 @@ const Waveform = () => (
       <motion.div
         key={i}
         className="w-1 rounded-full"
-        style={{ background: `linear-gradient(to top, hsl(210 60% 70%), hsl(${150 + i * 2} 50% 65%))` }}
+        style={{ background: `linear-gradient(to top, hsl(210 75% 70%), hsl(${150 + i * 2} 65% 60%))` }}
         initial={{ height: 4 }}
         animate={{ height: [4, Math.random() * 20 + 6, 4] }}
         transition={{ duration: 1.2 + Math.random() * 0.8, delay: i * 0.05, repeat: Infinity, ease: "easeInOut" as const }}
@@ -227,7 +227,7 @@ const Index = () => {
                 <motion.div
                   key={i}
                   className="w-2 rounded-full"
-                  style={{ background: "linear-gradient(to top, hsl(210 65% 60%), hsl(160 55% 55%))" }}
+                  style={{ background: "linear-gradient(to top, hsl(210 80% 65%), hsl(160 70% 55%))" }}
                   initial={{ height: 4 }}
                   animate={{ height: [4, height * 48, 8, height * 36, 4] }}
                   transition={{ duration: 1.8, delay: i * 0.12, repeat: Infinity, ease: "easeInOut" as const }}
