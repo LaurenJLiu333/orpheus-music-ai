@@ -110,15 +110,15 @@
     --section-cta: linear-gradient(180deg, hsl(235 25% 10%) 0%, hsl(240 28% 9%) 50%, hsl(250 40% 8%) 100%);
 
     --chat-dark: 250 40% 6%;
-    --chat-dark-foreground: 43 38% 94%;
+    --chat-dark-foreground: 46 47% 94%;
     --chat-input: 250 30% 18%;
 
     --sidebar-background: 250 35% 10%;
-    --sidebar-foreground: 43 20% 75%;
-    --sidebar-primary: 43 38% 94%;
+    --sidebar-foreground: 46 25% 75%;
+    --sidebar-primary: 46 47% 94%;
     --sidebar-primary-foreground: 250 40% 8%;
     --sidebar-accent: 250 25% 14%;
-    --sidebar-accent-foreground: 43 20% 80%;
+    --sidebar-accent-foreground: 46 25% 80%;
     --sidebar-border: 250 20% 18%;
     --sidebar-ring: 210 40% 40%;
   }
