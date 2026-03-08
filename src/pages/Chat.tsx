@@ -57,7 +57,7 @@ const Chat = () => {
   if (!authLoading && !user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] px-6">
-        <p className="text-lg text-muted-foreground mb-4">Please log in to use the AI assistant.</p>
+        <p className="text-lg text-muted-foreground mb-4">Please log in to use Orpheus AI.</p>
         <Button onClick={() => navigate("/login")} variant="outline" className="rounded-full px-8 border-foreground">Login</Button>
       </main>
     );
