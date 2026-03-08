@@ -313,7 +313,7 @@ const Index = () => {
       <motion.section
         id="features"
         className="relative w-full flex flex-col items-center px-6 py-28 overflow-hidden"
-        style={{ background: "linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(190 50% 90%) 50%, hsl(160 45% 90%) 100%)" }}
+        style={{ background: "var(--section-b)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
