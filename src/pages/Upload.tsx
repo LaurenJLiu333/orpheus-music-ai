@@ -250,7 +250,7 @@ const Upload = () => {
             {file && (
               <div className="flex items-center gap-3 mb-6">
                 <FileAudio size={20} style={{ color: "#200f3f" }} />
-                <span className="font-semibold" style={{ color: "#200f3f" }}>Composition: {file.name}</span>
+                <span className="font-semibold" style={{ color: "#200f3f" }}>File name: {file.name}</span>
               </div>
             )}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
