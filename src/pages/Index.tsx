@@ -243,7 +243,7 @@ const Index = () => {
       ═══════════════════════════════════════════════════════════ */}
       <motion.section
         id="how-it-works"
-        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "linear-gradient(180deg, hsl(160 38% 91%) 0%, hsl(190 40% 91%) 50%, hsl(210 42% 91%) 100%)" }}
+        className="relative w-full flex flex-col items-center px-6 py-28" style={{ background: "var(--section-a)" }}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
