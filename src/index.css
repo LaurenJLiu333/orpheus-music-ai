@@ -44,6 +44,13 @@
     --gradient-green: linear-gradient(135deg, hsl(160 50% 88%), hsl(150 60% 78%));
     --gradient-ivory: linear-gradient(180deg, hsl(48 40% 95%), hsl(48 35% 90%));
 
+    --section-hero: linear-gradient(180deg, hsl(48 40% 95%) 0%, hsl(160 35% 92%) 60%, hsl(160 38% 91%) 100%);
+    --section-a: linear-gradient(180deg, hsl(160 38% 91%) 0%, hsl(190 40% 91%) 50%, hsl(210 42% 91%) 100%);
+    --section-b: linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(190 50% 90%) 50%, hsl(160 45% 90%) 100%);
+    --section-c: linear-gradient(180deg, hsl(160 45% 90%) 0%, hsl(180 38% 91%) 50%, hsl(210 42% 91%) 100%);
+    --section-d: linear-gradient(180deg, hsl(210 42% 91%) 0%, hsl(180 38% 91%) 50%, hsl(160 35% 91%) 100%);
+    --section-cta: linear-gradient(180deg, hsl(160 35% 91%) 0%, hsl(180 38% 91%) 50%, hsl(48 40% 95%) 100%);
+
     --chat-dark: 270 50% 12%;
     --chat-dark-foreground: 48 40% 95%;
     --chat-input: 250 40% 55%;
