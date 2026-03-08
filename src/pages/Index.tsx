@@ -222,7 +222,18 @@ const Index = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="flex justify-center mt-8"
           >
-            <EqualizerBars />
+            <div className="flex items-end gap-1.5 h-12">
+              {[0.3, 0.7, 0.5, 1, 0.4, 0.8, 0.6, 0.9, 0.35, 0.75].map((height, i) => (
+                <motion.div
+                  key={i}
+                  className="w-2 rounded-full"
+                  style={{ background: "linear-gradient(to top, hsl(210 65% 60%), hsl(160 55% 55%))" }}
+                  initial={{ height: 4 }}
+                  animate={{ height: [4, height * 48, 8, height * 36, 4] }}
+                  transition={{ duration: 1.8, delay: i * 0.12, repeat: Infinity, ease: "easeInOut" as const }}
+                />
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </section>
