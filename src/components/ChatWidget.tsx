@@ -61,9 +61,9 @@ const ChatWidget = () => {
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-1">
         <button
           onClick={() => setOpen(true)}
-          className="w-14 h-14 rounded-full border border-foreground/20 bg-transparent flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+          className="w-14 h-14 flex items-center justify-center hover:scale-105 transition-transform"
         >
-          <img src={lyreLogo} alt="Chat" className="w-9 h-9 rounded-full" />
+          <img src={lyreLogo} alt="Chat" className="w-12 h-12" />
         </button>
         <span className="text-xs font-medium text-foreground">Chatbot</span>
       </div>
