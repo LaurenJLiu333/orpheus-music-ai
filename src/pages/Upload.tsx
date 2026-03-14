@@ -40,12 +40,12 @@ const Upload = () => {
   }, [user, authLoading]);
 
   const handleFile = useCallback((f: File) => {
-    if (f.name.match(/\.(mid|midi)$/i)) {
+    if (f.name.match(/\.(mid|midi|pdf)$/i)) {
       setFile(f);
       setError("");
       setFeedback("");
     } else {
-      setError("Please upload a .mid or .midi file.");
+      setError("Please upload a .mid, .midi, or .pdf file.");
     }
   }, []);
 
