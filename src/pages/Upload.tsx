@@ -281,7 +281,7 @@ const Upload = () => {
           </div>
         ) : (
           <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-muted-foreground text-sm">Upload and analyze a MIDI file to see feedback here.</p>
+            <p className="text-muted-foreground text-sm">Upload and analyze a MIDI or PDF file to see feedback here.</p>
           </div>
         )}
       </div>
