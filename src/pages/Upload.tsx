@@ -67,16 +67,19 @@ const Upload = () => {
     setFeedback("");
     setError("");
 
+    const isPdf = file.name.match(/\.pdf$/i);
+
     try {
       const arrayBuffer = await file.arrayBuffer();
       const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-midi", {
         body: {
-          midiBase64: base64,
+          ...(isPdf ? { pdfBase64: base64 } : { midiBase64: base64 }),
           fileName: file.name,
           fileSize: file.size,
           instruments: selectedInstruments,
+          fileType: isPdf ? "pdf" : "midi",
         },
       });
 
