@@ -184,10 +184,10 @@ const Upload = () => {
           dragActive ? "border-accent bg-accent/10" : "border-border bg-card"
         }`}
       >
-        <input ref={inputRef} type="file" accept=".mid,.midi" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
+        <input ref={inputRef} type="file" accept=".mid,.midi,.pdf" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <UploadIcon className="mx-auto mb-4 text-foreground" size={48} />
         <h2 className="text-2xl font-bold text-foreground mb-2">UPLOAD</h2>
-        <p className="text-sm text-muted-foreground">Drag and drop a .mid file or click to browse</p>
+        <p className="text-sm text-muted-foreground">Drag and drop a MIDI or PDF file, or click to browse</p>
 
         {file && (
           <div className="mt-4 flex items-center justify-center gap-3 bg-background/80 rounded-xl px-4 py-2 mx-auto w-fit">
