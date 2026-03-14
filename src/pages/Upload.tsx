@@ -40,12 +40,12 @@ const Upload = () => {
   }, [user, authLoading]);
 
   const handleFile = useCallback((f: File) => {
-    if (f.name.match(/\.(mid|midi)$/i)) {
+    if (f.name.match(/\.(mid|midi|pdf)$/i)) {
       setFile(f);
       setError("");
       setFeedback("");
     } else {
-      setError("Please upload a .mid or .midi file.");
+      setError("Please upload a .mid, .midi, or .pdf file.");
     }
   }, []);
 
@@ -67,16 +67,19 @@ const Upload = () => {
     setFeedback("");
     setError("");
 
+    const isPdf = file.name.match(/\.pdf$/i);
+
     try {
       const arrayBuffer = await file.arrayBuffer();
       const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-midi", {
         body: {
-          midiBase64: base64,
+          ...(isPdf ? { pdfBase64: base64 } : { midiBase64: base64 }),
           fileName: file.name,
           fileSize: file.size,
           instruments: selectedInstruments,
+          fileType: isPdf ? "pdf" : "midi",
         },
       });
 
@@ -143,7 +146,7 @@ const Upload = () => {
   if (!authLoading && !user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-[60vh] px-6">
-        <p className="text-lg text-muted-foreground mb-4">Please log in to upload and analyze MIDI files.</p>
+        <p className="text-lg text-muted-foreground mb-4">Please log in to upload and analyze compositions.</p>
         <Button onClick={() => navigate("/login")} variant="outline" className="rounded-full px-8 border-foreground">Login</Button>
       </main>
     );
@@ -181,10 +184,10 @@ const Upload = () => {
           dragActive ? "border-accent bg-accent/10" : "border-border bg-card"
         }`}
       >
-        <input ref={inputRef} type="file" accept=".mid,.midi" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
+        <input ref={inputRef} type="file" accept=".mid,.midi,.pdf" className="hidden" onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])} />
         <UploadIcon className="mx-auto mb-4 text-foreground" size={48} />
         <h2 className="text-2xl font-bold text-foreground mb-2">UPLOAD</h2>
-        <p className="text-sm text-muted-foreground">Drag and drop a .mid file or click to browse</p>
+        <p className="text-sm text-muted-foreground">Drag and drop a MIDI or PDF file, or click to browse</p>
 
         {file && (
           <div className="mt-4 flex items-center justify-center gap-3 bg-background/80 rounded-xl px-4 py-2 mx-auto w-fit">
@@ -243,7 +246,7 @@ const Upload = () => {
         <h3 className="text-lg font-bold mb-4" style={{ color: "#200f3f" }}>Feedback</h3>
         {analyzing ? (
           <div className="flex items-center gap-2 text-muted-foreground p-6">
-            <Loader2 className="animate-spin" size={16} /> Analyzing your MIDI file...
+            <Loader2 className="animate-spin" size={16} /> Analyzing your file...
           </div>
         ) : sections.length > 0 ? (
           <div className="rounded-2xl border border-border p-6 shadow-lg bg-muted">
@@ -278,7 +281,7 @@ const Upload = () => {
           </div>
         ) : (
           <div className="rounded-2xl border border-border bg-card p-6">
-            <p className="text-muted-foreground text-sm">Upload and analyze a MIDI file to see feedback here.</p>
+            <p className="text-muted-foreground text-sm">Upload and analyze a MIDI or PDF file to see feedback here.</p>
           </div>
         )}
       </div>
