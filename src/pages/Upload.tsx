@@ -246,7 +246,7 @@ const Upload = () => {
         <h3 className="text-lg font-bold mb-4" style={{ color: "#200f3f" }}>Feedback</h3>
         {analyzing ? (
           <div className="flex items-center gap-2 text-muted-foreground p-6">
-            <Loader2 className="animate-spin" size={16} /> Analyzing your MIDI file...
+            <Loader2 className="animate-spin" size={16} /> Analyzing your file...
           </div>
         ) : sections.length > 0 ? (
           <div className="rounded-2xl border border-border p-6 shadow-lg bg-muted">
