@@ -69,7 +69,17 @@ const Upload = () => {
       });
 
       if (fnError) throw fnError;
-      setFeedback(data?.analysis || "No feedback received.");
+      const analysisText = data?.analysis || "No feedback received.";
+      setFeedback(analysisText);
+
+      if (user) {
+        await supabase.from("analyses").insert({
+          user_id: user.id,
+          file_name: file.name,
+          file_type: isPdf ? "pdf" : "midi",
+          feedback: analysisText,
+        });
+      }
     } catch (e: any) {
       console.error(e);
       setError(e.message || "Analysis failed. Please try again.");
