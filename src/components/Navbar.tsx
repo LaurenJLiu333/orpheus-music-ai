@@ -29,9 +29,16 @@ const Navbar = () => {
           </Button>
         </Link>
         {user ? (
-          <Button variant="ghost" onClick={handleLogout} className="text-foreground font-bold">
-            Logout
-          </Button>
+          <>
+            <Link to="/history">
+              <Button variant="outline" className="rounded-full px-6 border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground font-bold">
+                History
+              </Button>
+            </Link>
+            <Button variant="ghost" onClick={handleLogout} className="text-foreground font-bold">
+              Logout
+            </Button>
+          </>
         ) : (
           <Link to="/login">
             <Button variant="ghost" className="text-foreground font-bold">Login</Button>

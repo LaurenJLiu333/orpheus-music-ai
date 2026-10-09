@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import ChatWidget from "@/components/ChatWidget";
 import Index from "./pages/Index";
 import Upload from "./pages/Upload";
+import History from "./pages/History";
 import Chat from "./pages/Chat";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -29,6 +30,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/history" element={<History />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
