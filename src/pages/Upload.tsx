@@ -2,16 +2,9 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Upload as UploadIcon, X, FileAudio, Loader2, Check, CheckCircle2, AlertTriangle, Sparkles } from "lucide-react";
+import { Upload as UploadIcon, X, FileAudio, Loader2, CheckCircle2, AlertTriangle, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-const INSTRUMENTS = [
-  "Piano", "Guitar", "Bass", "Drums", "Violin", "Viola", "Cello",
-  "Flute", "Clarinet", "Saxophone", "Trumpet", "Trombone", "French Horn",
-  "Oboe", "Bassoon", "Harp", "Organ", "Synthesizer", "Voice/Vocals",
-  "Ukulele", "Banjo", "Mandolin", "Accordion", "Harmonica", "Timpani",
-  "Vibraphone", "Marimba", "Xylophone",
-];
 
 interface FeedbackSection {
   title: string;
@@ -27,7 +20,6 @@ const Upload = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
   const [dragActive, setDragActive] = useState(false);
-  const [selectedInstruments, setSelectedInstruments] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [showWelcome, setShowWelcome] = useState(false);
 
@@ -55,12 +47,6 @@ const Upload = () => {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   }, [handleFile]);
 
-  const toggleInstrument = (instrument: string) => {
-    setSelectedInstruments(prev =>
-      prev.includes(instrument) ? prev.filter(i => i !== instrument) : [...prev, instrument]
-    );
-  };
-
   const analyze = async () => {
     if (!file) return;
     setAnalyzing(true);
@@ -78,7 +64,6 @@ const Upload = () => {
           ...(isPdf ? { pdfBase64: base64 } : { midiBase64: base64 }),
           fileName: file.name,
           fileSize: file.size,
-          instruments: selectedInstruments,
           fileType: isPdf ? "pdf" : "midi",
         },
       });
@@ -209,35 +194,6 @@ const Upload = () => {
         </Button>
       </div>
 
-      {/* Instrument selector */}
-      <div className="w-full mt-8 rounded-2xl border border-border bg-card p-6">
-        <h3 className="text-lg font-bold text-foreground mb-2">Instruments in Your Score</h3>
-        <p className="text-sm text-muted-foreground mb-4">Select the instruments used so the AI can give specialized feedback.</p>
-        <div className="flex flex-wrap gap-2">
-          {INSTRUMENTS.map(inst => {
-            const selected = selectedInstruments.includes(inst);
-            return (
-              <button
-                key={inst}
-                onClick={() => toggleInstrument(inst)}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all flex items-center gap-1.5 ${
-                  selected
-                    ? "border-foreground bg-foreground text-primary-foreground"
-                    : "border-border bg-background text-foreground hover:border-foreground/50"
-                }`}
-              >
-                {selected && <Check size={14} />}
-                {inst}
-              </button>
-            );
-          })}
-        </div>
-        {selectedInstruments.length > 0 && (
-          <p className="text-xs text-muted-foreground mt-3">
-            {selectedInstruments.length} instrument{selectedInstruments.length > 1 ? "s" : ""} selected
-          </p>
-        )}
-      </div>
 
       {error && <p className="text-destructive text-sm mt-4">{error}</p>}
 
