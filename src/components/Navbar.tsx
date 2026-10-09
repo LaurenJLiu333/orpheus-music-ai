@@ -30,10 +30,8 @@ const Navbar = () => {
         </Link>
         {user ? (
           <>
-            <Link to="/history">
-              <Button variant="outline" className="rounded-full px-6 border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground font-bold">
-                History
-              </Button>
+            <Link to="/history" className="px-3 py-2 text-foreground font-bold hover:opacity-70 transition-opacity">
+              History
             </Link>
             <Button variant="ghost" onClick={handleLogout} className="text-foreground font-bold">
               Logout
